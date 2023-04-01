@@ -89,6 +89,7 @@ class Login(QMainWindow):
             # If passcode correct
             self.label3.setText("Passcode Benar! Selamat Datang :D")
             self.label3.setStyleSheet("margin-top: 10px; color: green; font-size: 14px")
+            self.parent.stackedWidget.setCurrentIndex(2)
         elif(condition == 1):
             # If passcode is not valid
             self.label3.setText("Passcode Seharusnya 6 Angka!")
