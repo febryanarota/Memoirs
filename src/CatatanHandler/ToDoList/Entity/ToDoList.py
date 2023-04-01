@@ -44,16 +44,8 @@ class ToDoList():
         query.addBindValue(self.tanggal)
         query.exec()
 
-        # Prepare and execute query to retrieve the updated to do list
-        query.prepare("SELECT * FROM to_do_list")
-        query.exec()
-
-        newListOfTDL = []
-        while query.next():
-            TDL = []
-            for i in range(query.record().count()):
-                TDL.append(query.value(i))
-            newListOfTDL.append(TDL)
+        # Execute query to retrieve the updated to do list
+        newListOfTDL = self.getTDL(self.tanggal)
 
         return newListOfTDL
     
@@ -71,16 +63,8 @@ class ToDoList():
         query.addBindValue(to_do_lama.done)
         query.addBindValue(to_do_lama.tanggal)
 
-        # Prepare and execute query to retrieve the updated to do list
-        query.prepare("SELECT * FROM to_do_list")
-        query.exec()
-
-        newListOfTDL = []
-        while query.next():
-            TDL = []
-            for i in range(query.record().count()):
-                TDL.append(query.value(i))
-            newListOfTDL.append(TDL)
+        # Execute query to retrieve the updated to do list
+        newListOfTDL = self.getTDL(self.tanggal)
 
         return newListOfTDL
         
@@ -94,15 +78,7 @@ class ToDoList():
         query.addBindValue(self.tanggal)
         query.addBindValue(self.to_do)
         
-        # Prepare and execute query to retrieve the updated to do list
-        query.prepare("SELECT * FROM to_do_list")
-        query.exec()
-
-        newListOfTDL = []
-        while query.next():
-            TDL = []
-            for i in range(query.record().count()):
-                TDL.append(query.value(i))
-            newListOfTDL.append(TDL)
+        # Execute query to retrieve the updated to do list
+        newListOfTDL = self.getTDL(self.tanggal)
 
         return newListOfTDL
