@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QStackedWidget
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
 from AuthHandler.Boundary.Login import *
 from AuthHandler.Boundary.Register import *
+from MainMenu.MainMenu import *
 
 # Creating connection
 con = QSqlDatabase.addDatabase("QSQLITE")
@@ -40,13 +41,14 @@ class MainWindow(QMainWindow):
         super().__init__()
         
         # Set initial size and window title
-        self.resize(1280, 800)
+        self.resize(1280, 840)
         self.setWindowTitle("Memoirs")
 
         # Create stackedWidget for navigation
         self.stackedWidget = QStackedWidget()
         self.stackedWidget.addWidget(Login(self))
         self.stackedWidget.addWidget(Register(self))
+        self.stackedWidget.addWidget(MainMenu(self))
 
         # Set central widget
         self.setCentralWidget(self.stackedWidget)
