@@ -4,6 +4,9 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QStackedWidget
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
 from AuthHandler.Boundary.Login import *
 from AuthHandler.Boundary.Register import *
+from MainMenu.MainMenu import *
+from CatatanHandler.Artikel.Boundary.ArtikelDisplay import *
+from CatatanHandler.Artikel.Boundary.ArtikelDetailDisplay import *
 
 # Creating connection
 con = QSqlDatabase.addDatabase("QSQLITE")
@@ -24,6 +27,19 @@ createPasscodeTableQuery.exec(
     """
 )
 
+# Create Article Table
+createArticleTableQuery = QSqlQuery()
+createArticleTableQuery.exec(
+    """
+    CREATE TABLE article(
+        title VARCHAR(100) PRIMARY KEY,
+        tanggal VARCHAR(100),
+        content VARCHAR(5000) NOT NULL,
+        image VARCHAR(100)
+    )
+    """
+)
+
 # To reset passcode for the mean time, execute this code below.
 # Delete Current Passcode
 #deletePasscodeQuery = QSqlQuery()
@@ -33,6 +49,13 @@ createPasscodeTableQuery.exec(
     #"""
 #)
 
+deletePasscodeQuery = QSqlQuery()
+deletePasscodeQuery.exec(
+    """
+    DELETE FROM article
+    """
+)
+
 # Class MainWindow
 class MainWindow(QMainWindow):
     # Constructor
@@ -40,13 +63,17 @@ class MainWindow(QMainWindow):
         super().__init__()
         
         # Set initial size and window title
-        self.resize(1280, 800)
+        self.resize(1280, 840)
         self.setWindowTitle("Memoirs")
+        self.initializeDataArticle()
 
         # Create stackedWidget for navigation
         self.stackedWidget = QStackedWidget()
         self.stackedWidget.addWidget(Login(self))
         self.stackedWidget.addWidget(Register(self))
+        self.stackedWidget.addWidget(MainMenu(self))
+        self.stackedWidget.addWidget(ArtikelDisplay(self))
+        self.stackedWidget.addWidget(ArtikelDetailDisplay(self))
 
         # Set central widget
         self.setCentralWidget(self.stackedWidget)
@@ -64,6 +91,38 @@ class MainWindow(QMainWindow):
             self.stackedWidget.setCurrentIndex(0)
         else:
             self.stackedWidget.setCurrentIndex(1)
+
+    def initializeDataArticle(self):
+        f = open("./dataseed/dataArtikel.txt", 'r')
+        lines = f.readlines()
+
+        readTitle = True
+        title = ""
+        tanggal = ""
+        content = ""
+        image = ""
+        for line in lines:
+            if(readTitle):
+                title = line
+                readTitle = False
+            elif(line == "\n"):
+                readTitle = True
+                query = QSqlQuery()
+                query.prepare(
+                """
+                INSERT INTO article VALUES (?, ?, ?, ?)
+                """
+                )
+                content = content[:len(content) - 1]
+                query.addBindValue(title)
+                query.addBindValue(tanggal)
+                query.addBindValue(content)
+                query.addBindValue(image)
+                query.exec()
+                title = ""
+                content = ""
+            else:
+                content += "        " + line + "\n"
 
 # Run Application
 app = QApplication(sys.argv)
