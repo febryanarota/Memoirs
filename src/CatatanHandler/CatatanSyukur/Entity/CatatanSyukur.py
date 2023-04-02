@@ -32,7 +32,7 @@ class CatatanSyukur:
         saveQuery.exec()
         return self.getAllSyukur()
     
-    def edit(self, syukurLama):
+    def edit(self, tanggalLama):
         editQuery = QSqlQuery()
         editQuery.prepare(
             """
@@ -40,13 +40,12 @@ class CatatanSyukur:
             SET
                 tanggal = ?
                 syukur = ?
-            WHERE tanggal = ? AND syukur = ?
+            WHERE tanggal = ?
             """
         )
         editQuery.addBindValue(self.tanggal)
         editQuery.addBindValue(self.syukur)
-        editQuery.addBindValue(syukurLama.tanggal)
-        editQuery.addBindValue(syukurLama.syukur)
+        editQuery.addBindValue(tanggalLama)
         editQuery.exec()
         return self.getAllSyukur()
 
@@ -55,13 +54,10 @@ class CatatanSyukur:
         deleteQuery.prepare(
             """
             DELETE FROM catatanSyukur
-            WHERE tanggal = ? AND syukur = ?
+            WHERE tanggal = ?
             """
         )
         deleteQuery.addBindValue(self.tanggal)
-        deleteQuery.addBindValue(self.syukur)
         deleteQuery.exec()
         return self.getAllSyukur()
-
-
-
+    
