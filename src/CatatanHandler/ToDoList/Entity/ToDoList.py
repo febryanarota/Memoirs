@@ -1,7 +1,7 @@
 from PyQt5.QtSql import QSqlQuery
 
 class ToDoList():
-    def __init__(self, to_do = "", done = False, tanggal = ""):
+    def __init__(self, to_do = "", done = 0, tanggal = ""):
         self.to_do = to_do
         self.done = done
         self.tanggal = tanggal
@@ -40,7 +40,7 @@ class ToDoList():
         # Prepare and execute an INSERT query
         query.prepare("INSERT INTO to_do_list (to_do, done, tanggal) VALUES (?, ?, ?)")
         query.addBindValue(self.to_do)
-        query.addBindValue(False)
+        query.addBindValue(0)
         query.addBindValue(self.tanggal)
         query.exec()
 
