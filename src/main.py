@@ -8,6 +8,8 @@ from MainMenu.MainMenu import *
 from CatatanHandler.Artikel.Boundary.ArtikelDisplay import *
 from CatatanHandler.Artikel.Boundary.ArtikelDetailDisplay import *
 from CatatanHandler.ToDoList.Boundary.TDLDisplay import *
+from CatatanHandler.ToDoList.Boundary.FormTDL import *
+import datetime
 
 # Creating connection
 con = QSqlDatabase.addDatabase("QSQLITE")
@@ -58,14 +60,14 @@ createToDoListTableQuery.exec(
 #     """
 # )
 
-createToDoListTableQuery.exec(
-    "SELECT * FROM to_do_list"
-)
+# createToDoListTableQuery.exec(
+#     "SELECT * FROM to_do_list"
+# )
 
-while (createToDoListTableQuery.next()):
-    print(createToDoListTableQuery.value(0))
-    print(createToDoListTableQuery.value(1))
-    print(createToDoListTableQuery.value(2))
+# while (createToDoListTableQuery.next()):
+#     print(createToDoListTableQuery.value(0))
+#     print(createToDoListTableQuery.value(1))
+#     print(createToDoListTableQuery.value(2))
 
 
 # deletePasscodeQuery = QSqlQuery()
@@ -97,6 +99,7 @@ class MainWindow(QMainWindow):
         self.resize(1280, 840)
         self.setWindowTitle("Memoirs")
         self.initializeDataArticle()
+        self.date = datetime.date.today().strftime('%Y-%m-%d')
 
         # Create stackedWidget for navigation
         self.stackedWidget = QStackedWidget()
@@ -105,8 +108,8 @@ class MainWindow(QMainWindow):
         self.stackedWidget.addWidget(MainMenu(self))
         self.stackedWidget.addWidget(ArtikelDisplay(self))
         self.stackedWidget.addWidget(ArtikelDetailDisplay(self))
-        self.stackedWidget.addWidget(TDLDisplay(self))
-        self.stackedWidget.addWidget(FormTDL(self))
+        self.stackedWidget.addWidget(TDLDisplay(self, self.date))
+        self.stackedWidget.addWidget(FormTDL(self, self.date))
 
         # Set central widget
         self.setCentralWidget(self.stackedWidget)

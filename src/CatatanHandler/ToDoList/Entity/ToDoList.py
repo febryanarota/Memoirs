@@ -26,10 +26,8 @@ class ToDoList():
 
         listOfTDL = []
         while query.next():
-            TDL = []
-            for i in range(query.record().count()):
-                TDL.append(query.value(i))
-            listOfTDL.append(TDL)
+            listOfTDL.append(ToDoList(query.value(0), query.value(1), query.value(2)))
+
         
         return listOfTDL
 
