@@ -7,6 +7,7 @@ from AuthHandler.Boundary.Register import *
 from MainMenu.MainMenu import *
 from CatatanHandler.Artikel.Boundary.ArtikelDisplay import *
 from CatatanHandler.Artikel.Boundary.ArtikelDetailDisplay import *
+from CatatanHandler.ToDoList.Boundary.TDLDisplay import *
 
 # Creating connection
 con = QSqlDatabase.addDatabase("QSQLITE")
@@ -40,21 +41,51 @@ createArticleTableQuery.exec(
     """
 )
 
-# To reset passcode for the mean time, execute this code below.
-# Delete Current Passcode
-#deletePasscodeQuery = QSqlQuery()
-#deletePasscodeQuery.exec(
-    #"""
-    #DELETE FROM passcode
-    #"""
-#)
-
-deletePasscodeQuery = QSqlQuery()
-deletePasscodeQuery.exec(
+createToDoListTableQuery = QSqlQuery()
+createToDoListTableQuery.exec(
     """
-    DELETE FROM article
+    CREATE TABLE to_do_list(
+        to_do VARCHAR(105) PRIMARY KEY,
+        tanggal VARCHAR(100) PRIMARY KEY,
+        done INT default 0
+    )
     """
 )
+#------------------TESTING------------------#
+# createToDoListTableQuery.exec(
+#     """
+#     INSERT INTO to_do_list (to_do, tanggal, done) VALUES ('Makan', '2021-05-01', 0)
+#     """
+# )
+
+createToDoListTableQuery.exec(
+    "SELECT * FROM to_do_list"
+)
+
+while (createToDoListTableQuery.next()):
+    print(createToDoListTableQuery.value(0))
+    print(createToDoListTableQuery.value(1))
+    print(createToDoListTableQuery.value(2))
+
+
+# deletePasscodeQuery = QSqlQuery()
+# deletePasscodeQuery.exec(
+#     """
+#     DELETE FROM to_do_list
+#     """
+# )
+#----------------------------------------------#
+
+# To reset passcode for the mean time, execute this code below.
+# Delete Current Passcode
+# deletePasscodeQuery = QSqlQuery()
+# deletePasscodeQuery.exec(
+#     """
+#     DELETE FROM passcode
+#     """
+# )
+
+
 
 # Class MainWindow
 class MainWindow(QMainWindow):
@@ -74,6 +105,8 @@ class MainWindow(QMainWindow):
         self.stackedWidget.addWidget(MainMenu(self))
         self.stackedWidget.addWidget(ArtikelDisplay(self))
         self.stackedWidget.addWidget(ArtikelDetailDisplay(self))
+        self.stackedWidget.addWidget(TDLDisplay(self))
+        self.stackedWidget.addWidget(FormTDL(self))
 
         # Set central widget
         self.setCentralWidget(self.stackedWidget)

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1284</width>
+    <width>1467</width>
     <height>831</height>
    </rect>
   </property>
@@ -74,7 +74,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../../../../../../../../Downloads/tes.qrc">:/newPrefix/Items.png</pixmap>
+          <pixmap resource="tes.qrc">:/newPrefix/Items.png</pixmap>
          </property>
         </widget>
         <widget class="QLabel" name="label">
@@ -87,10 +87,7 @@
           </rect>
          </property>
          <property name="text">
-          <string/>
-         </property>
-         <property name="pixmap">
-          <pixmap resource="../../../../../../../../Downloads/tes.qrc">:/newPrefix/todolist.png</pixmap>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/newPrefix/todolist.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
         <widget class="QLabel" name="label_5">
@@ -155,10 +152,7 @@
           </rect>
          </property>
          <property name="text">
-          <string/>
-         </property>
-         <property name="pixmap">
-          <pixmap resource="../../../../../../../../Downloads/tes.qrc">:/newPrefix/Icon.png</pixmap>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/newPrefix/Icon.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </widget>
@@ -185,8 +179,8 @@
          <string/>
         </property>
         <property name="icon">
-         <iconset>
-          <normaloff>../../../../../../../../Downloads/Back.png</normaloff>../../../../../../../../Downloads/Back.png</iconset>
+         <iconset resource="tes.qrc">
+          <normaloff>:/newPrefix/Back.png</normaloff>:/newPrefix/Back.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -224,7 +218,7 @@
            <string notr="true">margin-top: 40px; color : #2F2F2F;</string>
           </property>
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To Do List&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Judul&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -232,134 +226,69 @@
          </widget>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_3">
-          <item>
-           <spacer name="verticalSpacer">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Minimum</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout">
-            <item>
-             <spacer name="horizontalSpacer">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeType">
-               <enum>QSizePolicy::Expanding</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_3">
-              <property name="font">
-               <font>
-                <family>Poppins</family>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-              <property name="lineWidth">
-               <number>1</number>
-              </property>
-              <property name="midLineWidth">
-               <number>0</number>
-              </property>
-              <property name="text">
-               <string>30/02/2023</string>
-              </property>
-              <property name="wordWrap">
-               <bool>false</bool>
-              </property>
-              <property name="margin">
-               <number>0</number>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_3">
-              <property name="baseSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="layoutDirection">
-               <enum>Qt::LeftToRight</enum>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>../../../../../../../../Downloads/Date_range_light (1).png</normaloff>../../../../../../../../Downloads/Date_range_light (1).png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>40</width>
-                <height>40</height>
-               </size>
-              </property>
-              <property name="flat">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_2">
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>../../../../../../../../Downloads/Add_round (1).png</normaloff>../../../../../../../../Downloads/Add_round (1).png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>40</width>
-                <height>40</height>
-               </size>
-              </property>
-              <property name="flat">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_2">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeType">
-               <enum>QSizePolicy::Fixed</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </item>
-         </layout>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>30/02/2023</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_3">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="tes.qrc">
+            <normaloff>:/newPrefix/Date_range_light.png</normaloff>:/newPrefix/Date_range_light.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>60</width>
+            <height>60</height>
+           </size>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="tes.qrc">
+            <normaloff>:/newPrefix/Edit_duotone_line.png</normaloff>:/newPrefix/Edit_duotone_line.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>60</width>
+            <height>60</height>
+           </size>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -375,7 +304,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1088</width>
+         <width>1271</width>
          <height>706</height>
         </rect>
        </property>
@@ -386,8 +315,8 @@
   </widget>
  </widget>
  <resources>
-  <include location="../../../../../../../../AppData/Downloads/tes.qrc"/>
-  <include location="../../../../../../../../Downloads/tes.qrc"/>
+  <include location="tes.qrc"/>
+  <include location="../AppData/Downloads/tes.qrc"/>
  </resources>
  <connections/>
 </ui>

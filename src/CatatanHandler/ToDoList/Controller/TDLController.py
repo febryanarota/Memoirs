@@ -12,7 +12,7 @@ class TDLController():
     
     def addTDL(self, to_do, tanggal):
         # Create entity
-        entityTDL = ToDoList(to_do, False, tanggal)
+        entityTDL = ToDoList(to_do, 0, tanggal)
 
         # Add new TDL
         return entityTDL.save()
@@ -26,7 +26,7 @@ class TDLController():
     
     def deleteTDL(self, to_do, tanggal):
         # Create entity
-        entityTDL = ToDoList(to_do, False, tanggal)
+        entityTDL = ToDoList(to_do, 0, tanggal)
 
         # Update deleted TDL
         return entityTDL.delete()

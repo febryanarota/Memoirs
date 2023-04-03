@@ -11,6 +11,12 @@ class MainMenu(QMainWindow):
         self.parent = Main
         uic.loadUi("./src/MainMenu/MainMenu.ui", self)
 
+        todolist_sidebar = self.findChild(QLabel, "label")
+        todolist_sidebar.mousePressEvent = self.navigateToDoList
+
+        todolist_image = self.findChild(QLabel, "label_11")
+        todolist_image.mousePressEvent = self.navigateToDoList
+
         article_sidebar = self.findChild(QLabel, "label_6")
         article_sidebar.mousePressEvent = self.navigateArticle
 
@@ -22,9 +28,13 @@ class MainMenu(QMainWindow):
 
         self.exit = self.findChild(QLabel, "label_7")
         self.exit.mousePressEvent = self.exitEvent
+
     
     def navigateArticle(self, event):
         self.parent.stackedWidget.setCurrentIndex(3)
+    
+    def navigateToDoList(self, event):
+        self.parent.stackedWidget.setCurrentIndex(5)
 
     def exitEvent(self, event):
         QApplication.quit()
