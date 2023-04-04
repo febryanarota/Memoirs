@@ -11,12 +11,58 @@ class CatatanTarget():
     def getTanggal(self):
         return (self.tanggal)
     
-    # CatatanTarget[*] save(self):
-    #     query = QSqlQuery()
-    #     query.prepare("INSERT INTO CatatanTarget VALUES (?, ?)")
-    #     query.addBindValue(self.target)
-    #     query.addBindValue(self.tanggal)
-    #     query.exec()
+    def getAllTarget(self):
+        # Method to execute query select all target
+        query = QSqlQuery()
+        query.prepare("SELECT * FROM catatan_target")
+        query.exec()
 
-    #     listOfTarget = self.getAllTarget()
-    #     return (listOfTarget)
+        listOfTarget = []
+        while (query.next()):
+            target = []
+            for i in range(query.record().count()):
+                target.append(query.value(i))
+            listOfTarget.append(target)
+        return (listOfTarget)
+
+    def save(self):
+        # Method to execute query insert to do list
+        query = QSqlQuery()
+
+        # Prepare and execute an INSERT query
+        query.prepare("INSERT INTO catatan_target (target, tanggal) VALUES (?, ?)")
+        query.addBindValue(self.target)
+        query.addBindValue(self.tanggal)
+        query.exec()
+
+        # Execute query to retrieve the updated to do list
+        newListOfTarget = self.getAllTarget()
+        return (newListOfTarget)
+    
+    def edit(self, prev_target):
+        # Method to execute query update to do list
+        query = QSqlQuery()
+
+        # Prepare and execute an UPDATE query
+        query.prepare("UPDATE catatan_target SET target = (?), tanggal = (?) WHERE target = (?) AND tanggal = (?)")
+        query.addBindValue(self.target)
+        query.addBindValue(self.tanggal)
+        query.addBindValue(prev_target.target)
+        query.addBindValue(prev_target.tanggal)
+
+        # Execute query to retrieve the updated to do list
+        newListOfTarget = self.getAllTarget()
+        return (newListOfTarget)
+        
+    def delete(self):
+        # Method to execute query delete to do list
+        query = QSqlQuery()
+
+        # Prepare and execute an DELETE query
+        query.prepare("DELETE from catatan_target WHERE target = (?) AND tanggal = (?)")
+        query.addBindValue(self.target)
+        query.addBindValue(self.tanggal)
+        
+        # Execute query to retrieve the updated to do list
+        newListOfTarget = self.getAllTarget()
+        return (newListOfTarget)
