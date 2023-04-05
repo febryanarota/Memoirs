@@ -57,6 +57,7 @@ class TDLDisplay(QMainWindow):
 
         todolistController = TDLController()
         listTodo = todolistController.showTDL(tanggal)
+
         # Container Widget       
         self.widget = QWidget()
         
@@ -96,23 +97,21 @@ class TDLDisplay(QMainWindow):
             TDL_box.addWidget(TDL_content_widget)
             TDL_box.addItem(spacer2)
 
-            del_button = QPushButton()
-            del_button.setStyleSheet("margin-right: 20px")
-            img = QPixmap("./images/delete_btn.png")
-            image = img.scaled(30, 30, Qt.KeepAspectRatio, Qt.FastTransformation)
-            del_button.setIcon(QIcon(image))
-            del_button.setIconSize(image.size())
-            TDL_box.addWidget(del_button)
+            delete_icon = QLabel()
+            icon = QPixmap("./images/delete_btn.png")
+            icon = icon.scaled(30, 30, Qt.KeepAspectRatio, Qt.FastTransformation)
+            delete_icon.setPixmap(icon)
+            delete_icon.setObjectName("delete")
+            delete_icon.mousePressEvent = partial(self.deleteTDL, deleteToDo = listTodo[i].getToDo(), deleteTanggal = listTodo[i].getTanggal())
+            TDL_box.addWidget(delete_icon)
 
-            edit_button = QPushButton()
-            edit_button.setStyleSheet("margin-right: 20px")
-            img = QPixmap("./images/edit_btn.png")
-            image = img.scaled(30, 30, Qt.KeepAspectRatio, Qt.FastTransformation)
-            edit_button.setIcon(QIcon(image))
-            edit_button.setIconSize(image.size())
-            TDL_box.addWidget(edit_button)
-
-
+            edit_icon = QLabel()
+            icon = QPixmap("./images/edit_btn.png")
+            icon = icon.scaled(30, 30, Qt.KeepAspectRatio, Qt.FastTransformation)
+            edit_icon.setPixmap(icon)
+            edit_icon.setObjectName("edit")
+            edit_icon.mousePressEvent = partial(self.showFormTDL, listTodo[i].getToDo(), listTodo[i].getTanggal())
+            TDL_box.addWidget(edit_icon)
 
             TDL_widget.setLayout(TDL_box)
             listTDL_box.addWidget(TDL_widget)
@@ -121,6 +120,9 @@ class TDLDisplay(QMainWindow):
         self.scrollArea.setWidget(self.widget)
             
             
+    def showFormTDL(self, event):
+        # second_window = FormTDL(self)
+        self.parent.stackedWidget.setCurrentIndex(6)
         
 
     def back(self, event):
@@ -129,8 +131,8 @@ class TDLDisplay(QMainWindow):
     def exitEvent(self, event):
         QApplication.quit()
     
-    def showFormTDL(self, event):
-        # second_window = FormTDL(self)
-        self.parent.stackedWidget.setCurrentIndex(6)
         
 
+    def deleteTDL(self, event, deleteToDo, deleteTanggal):
+        TDLController().deleteTDL(deleteToDo, deleteTanggal)
+        # self.showTDLDisplay(tanggal

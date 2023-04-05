@@ -100,6 +100,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Memoirs")
         self.initializeDataArticle()
         self.date = datetime.date.today().strftime('%Y-%m-%d')
+        self.editMode = False
 
         # Create stackedWidget for navigation
         self.stackedWidget = QStackedWidget()

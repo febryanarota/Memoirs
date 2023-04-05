@@ -1,7 +1,7 @@
 from PyQt5.QtSql import QSqlQuery
 
 class ToDoList():
-    def __init__(self, to_do = "", done = 0, tanggal = ""):
+    def __init__(self, to_do = "", tanggal = "", done = 0):
         self.to_do = to_do
         self.done = done
         self.tanggal = tanggal
@@ -36,10 +36,10 @@ class ToDoList():
         query = QSqlQuery()
 
         # Prepare and execute an INSERT query
-        query.prepare("INSERT INTO to_do_list (to_do, done, tanggal) VALUES (?, ?, ?)")
+        query.prepare("INSERT INTO to_do_list (to_do, tanggal, done) VALUES (?, ?, ?)")
         query.addBindValue(self.to_do)
-        query.addBindValue(0)
         query.addBindValue(self.tanggal)
+        query.addBindValue(0)
         query.exec()
 
         # Execute query to retrieve the updated to do list
@@ -60,6 +60,7 @@ class ToDoList():
         query.addBindValue(to_do_lama.to_do)
         query.addBindValue(to_do_lama.done)
         query.addBindValue(to_do_lama.tanggal)
+        query.exec()
 
         # Execute query to retrieve the updated to do list
         newListOfTDL = self.getTDL(self.tanggal)
@@ -70,11 +71,11 @@ class ToDoList():
         # Method to execute query delete to do list
 
         query = QSqlQuery()
-
         # Prepare and execute an DELETE query
-        query.prepare("DELETE from to_do_list WHERE tanggal = (?) AND to_do = (?)")
-        query.addBindValue(self.tanggal)
+        query.prepare("DELETE from to_do_list WHERE to_do = (?) AND tanggal = (?)")
         query.addBindValue(self.to_do)
+        query.addBindValue(self.tanggal)
+        query.exec()
         
         # Execute query to retrieve the updated to do list
         newListOfTDL = self.getTDL(self.tanggal)

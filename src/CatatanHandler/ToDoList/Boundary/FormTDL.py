@@ -1,10 +1,11 @@
 # Import libraries
-from PyQt5.QtWidgets import QWidget, QApplication, QMainWindow, QLabel, QScrollArea, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy, QLineEdit
+from PyQt5.QtWidgets import QTextEdit, QApplication, QMainWindow, QLabel, QScrollArea, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy, QLineEdit
 from PyQt5 import uic
 from PyQt5.QtGui import QFont, QPixmap
-from CatatanHandler.ToDoList.Boundary.TDLDisplay import *
 from functools import partial
 from CatatanHandler.ToDoList.Controller.TDLController import *
+from CatatanHandler.ToDoList.Boundary.TDLDisplay import *
+from CatatanHandler.ToDoList.Boundary.FormTDL import *
 from datetime import datetime
 
 class FormTDL(QMainWindow):
@@ -30,9 +31,13 @@ class FormTDL(QMainWindow):
 
         self.exit = self.findChild(QLabel, "label_7")
         self.exit.mousePressEvent = self.exitEvent
+        
 
-        self.TDLController = TDLController()
-        self.listTDL = self.TDLController.showTDL(tanggal)
+        self.date = self.findChild(QLabel, "label_3")
+        if(self.parent.editMode):
+            self.date.setText(self.parent.date)
+        else:
+            self.date.setText(datetime.now().strftime("%d/%m/%Y"))
 
 
     def back(self, event):
@@ -43,9 +48,9 @@ class FormTDL(QMainWindow):
 
     def add(self, event):
         task = self.inputbox.text()
-        temp = TDLController().addTDL(task,self.tanggal)
-        # get the widget at index 5
-        # widget_to_remove = self.parent.stackedWidget.widget(5)
+        TDLController().addTDL(task, self.tanggal)
+        self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(5))
+        self.parent.stackedWidget.insertWidget(5, TDLDisplay(self.parent, self.tanggal))
         self.parent.stackedWidget.setCurrentIndex(5)
 
         # remove the widget
