@@ -17,6 +17,14 @@ pylint:
     - pylint -d C0301 src/CatatanHandler/ToDoList/Boundary/TDLDisplay.py
     - pylint -d C0301 src/CatatanHandler/ToDoList/Controller/TDLController.py
     - pylint -d C0301 src/CatatanHandler/ToDoList/Entity/ToDoList.py
+    - pylint -d C0301 src/CatatanHandler/CatatanHarian/Boundary/FormHarian.py
+    - pylint -d C0301 src/CatatanHandler/CatatanHarian/Boundary/HarianDisplay.py
+    - pylint -d C0301 src/CatatanHandler/CatatanHarian/Controller/HarianController.py
+    - pylint -d C0301 src/CatatanHandler/CatatanHarian/Entity/CatatanHarian.py
+    - pylint -d C0301 src/CatatanHandler/Calendar/Calendar.py
+    - pylint -d C0301 src/CatatanHandler/Calendar/CalendarToDo.py
+    - pylint -d C0301 src/CatatanHandler/ConfirmPopUp/ConfirmPopUp.py
+
     - echo "Building complete."
 
 pytest:
