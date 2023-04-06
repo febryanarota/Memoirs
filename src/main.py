@@ -105,7 +105,9 @@ class MainWindow(QMainWindow):
     # Constructor
     def __init__(self):
         super().__init__()
+        self.initializeMain()
 
+    def initializeMain(self):
         # Set initial size and window title
         self.resize(1280, 840)
         self.setWindowTitle("Memoirs")
@@ -149,36 +151,36 @@ class MainWindow(QMainWindow):
             self.stackedWidget.setCurrentIndex(1)
 
     def initializeDataArticle(self):
-        f = open("./dataseed/dataArtikel.txt", 'r', encoding='utf-8')
-        lines = f.readlines()
+        with open("./dataseed/dataArtikel.txt", 'r', encoding='utf-8') as f:
+            lines = f.readlines()
 
-        readTitle = True
-        title = ""
-        tanggal = ""
-        content = ""
-        image = ""
-        for line in lines:
-            if readTitle:
-                title = line
-                readTitle = False
-            elif line == "\n":
-                readTitle = True
-                query = QSqlQuery()
-                query.prepare(
-                """
-                INSERT INTO article VALUES (?, ?, ?, ?)
-                """
-                )
-                content = content[:len(content) - 1]
-                query.addBindValue(title)
-                query.addBindValue(tanggal)
-                query.addBindValue(content)
-                query.addBindValue(image)
-                query.exec()
-                title = ""
-                content = ""
-            else:
-                content += "        " + line + "\n"
+            readTitle = True
+            title = ""
+            tanggal = ""
+            content = ""
+            image = ""
+            for line in lines:
+                if readTitle:
+                    title = line
+                    readTitle = False
+                elif line == "\n":
+                    readTitle = True
+                    query = QSqlQuery()
+                    query.prepare(
+                    """
+                    INSERT INTO article VALUES (?, ?, ?, ?)
+                    """
+                    )
+                    content = content[:len(content) - 1]
+                    query.addBindValue(title)
+                    query.addBindValue(tanggal)
+                    query.addBindValue(content)
+                    query.addBindValue(image)
+                    query.exec()
+                    title = ""
+                    content = ""
+                else:
+                    content += "        " + line + "\n"
 
 # Run Application
 app = QApplication(sys.argv)
