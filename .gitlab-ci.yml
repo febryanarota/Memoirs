@@ -28,6 +28,10 @@ pylint:
     - pylint -d C0301 src/CatatanHandler/CatatanTarget/Boundary/TargetDisplay.py
     - pylint -d C0301 src/CatatanHandler/CatatanTarget/Entity/CatatanTarget.py
     - pylint -d C0301 src/CatatanHandler/CatatanTarget/Controller/TargetController.py
+    - pylint -d C0301 src/CatatanHandler/CatatanSyukur/Boundary/FormSyukur.py
+    - pylint -d C0301 src/CatatanHandler/CatatanSyukur/Boundary/SyukurDisplay.py
+    - pylint -d C0301 src/CatatanHandler/CatatanSyukur/Entity/CatatanSyukur.py
+    - pylint -d C0301 src/CatatanHandler/CatatanSyukur/Controller/SyukurController.py
 
     - echo "Building complete."
 
