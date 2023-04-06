@@ -1,7 +1,7 @@
 from PyQt5.QtSql import QSqlQuery
 
 class CatatanSyukur:
-    def __init__(self, tanggal, syukur = ""):
+    def __init__(self, syukur = "", tanggal = ""):
         self.tanggal = tanggal
         self.syukur = syukur
 
@@ -11,9 +11,9 @@ class CatatanSyukur:
     def getTanggal(self):
         return self.tanggal
 
-    def getAllSyukur():
+    def getAllSyukur(self):
         getAllQuery = QSqlQuery()
-        getAllQuery.exec("SELECT * FROM catatanSyukur")
+        getAllQuery.exec("SELECT * FROM catatan_syukur")
         allSyukur = []
         while getAllQuery.next():
             content = CatatanSyukur(getAllQuery.value(0), getAllQuery.value(1))
@@ -24,28 +24,26 @@ class CatatanSyukur:
         saveQuery = QSqlQuery()
         saveQuery.prepare(
             """
-            INSERT INTO catatanSyukur VALUES (?,?)
+            INSERT INTO catatan_syukur (syukur, tanggal) VALUES (?,?)
             """
         )
-        saveQuery.addBindValue(self.tanggal)
         saveQuery.addBindValue(self.syukur)
+        saveQuery.addBindValue(self.tanggal)
         saveQuery.exec()
         return self.getAllSyukur()
     
-    def edit(self, tanggalLama):
+    def edit(self, syukurLama):
         editQuery = QSqlQuery()
         editQuery.prepare(
             """
-            UPDATE catatanSyukur
-            SET
-                tanggal = ?
-                syukur = ?
-            WHERE tanggal = ?
+            UPDATE catatan_syukur
+            SET syukur = ?
+            WHERE tanggal = ? AND syukur = ?
             """
         )
-        editQuery.addBindValue(self.tanggal)
         editQuery.addBindValue(self.syukur)
-        editQuery.addBindValue(tanggalLama)
+        editQuery.addBindValue(self.tanggal)
+        editQuery.addBindValue(syukurLama)
         editQuery.exec()
         return self.getAllSyukur()
 
@@ -53,11 +51,11 @@ class CatatanSyukur:
         deleteQuery = QSqlQuery()
         deleteQuery.prepare(
             """
-            DELETE FROM catatanSyukur
-            WHERE tanggal = ?
+            DELETE FROM catatan_syukur
+            WHERE syukur = ? AND tanggal = ?
             """
         )
+        deleteQuery.addBindValue(self.syukur)
         deleteQuery.addBindValue(self.tanggal)
         deleteQuery.exec()
         return self.getAllSyukur()
-    
