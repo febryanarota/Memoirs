@@ -1,8 +1,9 @@
 # Import libraries
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QMainWindow, QPushButton, QLabel, QLineEdit, QVBoxLayout, QWidget, QSizePolicy, QSpacerItem
+from PyQt5.QtWidgets import QVBoxLayout, QWidget, QSizePolicy, QSpacerItem
+from PyQt5.QtWidgets import QMainWindow, QPushButton, QLabel, QLineEdit
 from PyQt5.QtGui import QFont
-from AuthHandler.Controller.AuthController import *
+from AuthHandler.Controller.AuthController import AuthController
 
 # Class Login
 class Login(QMainWindow):
@@ -19,7 +20,7 @@ class Login(QMainWindow):
         self.label1.setAlignment(Qt.AlignCenter)
         self.label1.setFont(QFont("Poppins", 10, QFont.Bold))
         self.label1.setStyleSheet("margin: 150px 0px 0px 0px; letter-spacing: 3px; color: #2F2F2F")
-        
+
         self.label2 = QLabel(self)
         self.label2.setText("Memoirs")
         self.label2.setAlignment(Qt.AlignCenter)
@@ -53,7 +54,7 @@ class Login(QMainWindow):
         vbox = QVBoxLayout()
         vbox.setSpacing(0)
         vbox.setContentsMargins(0,0,0,0)
-        
+
         # Create horizontal spacer
         horizontalSpacer = QSpacerItem(0, 0, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
@@ -69,28 +70,28 @@ class Login(QMainWindow):
         # Set layout
         container = QWidget()
         container.setLayout(vbox)
-        
+
         # Set central widget
         self.setCentralWidget(container)
-    
+
     def handleChangePasscode(self):
         # Method to handle input change
         self.passcode = self.input.text()
 
     def login(self):
         # Method to handle event button to login
-        
+
         # Create controller class
         controller = AuthController()
         condition = controller.login(self.passcode)
 
         # Check return value
-        if(condition == 0):
+        if condition == 0:
             # If passcode correct
             self.label3.setText("Passcode Benar! Selamat Datang :D")
             self.label3.setStyleSheet("margin-top: 10px; color: green; font-size: 14px")
             self.parent.stackedWidget.setCurrentIndex(2)
-        elif(condition == 1):
+        elif condition == 1:
             # If passcode is not valid
             self.label3.setText("Passcode Seharusnya 6 Angka!")
             self.label3.setStyleSheet("margin-top: 10px; color: red; font-size: 14px")

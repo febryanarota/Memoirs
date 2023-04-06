@@ -3,21 +3,21 @@ import sys
 from datetime import date
 from PyQt5.QtWidgets import QApplication, QMainWindow, QStackedWidget
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
-from AuthHandler.Boundary.Login import *
-from AuthHandler.Boundary.Register import *
-from MainMenu.MainMenu import *
-from CatatanHandler.Artikel.Boundary.ArtikelDisplay import *
-from CatatanHandler.Artikel.Boundary.ArtikelDetailDisplay import *
-from CatatanHandler.ToDoList.Boundary.TDLDisplay import *
-from CatatanHandler.ToDoList.Boundary.FormTDL import *
-from CatatanHandler.CatatanSyukur.Boundary.SyukurDisplay import *
-from CatatanHandler.CatatanSyukur.Boundary.FormSyukur import *
-from CatatanHandler.CatatanTarget.Boundary.TargetDisplay import *
-from CatatanHandler.CatatanTarget.Boundary.FormTarget import *
-from CatatanHandler.CatatanHarian.Boundary.HarianDisplay import *
-from CatatanHandler.CatatanHarian.Boundary.FormHarian import *
-from CatatanHandler.Calendar.Calendar import *
-from CatatanHandler.Calendar.CalendarToDo import *
+from AuthHandler.Boundary.Login import Login
+from AuthHandler.Boundary.Register import Register
+from MainMenu.MainMenu import MainMenu
+from CatatanHandler.Artikel.Boundary.ArtikelDisplay import ArtikelDisplay
+from CatatanHandler.Artikel.Boundary.ArtikelDetailDisplay import ArtikelDetailDisplay
+from CatatanHandler.ToDoList.Boundary.TDLDisplay import TDLDisplay
+from CatatanHandler.ToDoList.Boundary.FormTDL import FormTDL
+from CatatanHandler.CatatanSyukur.Boundary.SyukurDisplay import SyukurDisplay
+from CatatanHandler.CatatanSyukur.Boundary.FormSyukur import FormSyukur
+from CatatanHandler.CatatanTarget.Boundary.TargetDisplay import TargetDisplay
+from CatatanHandler.CatatanTarget.Boundary.FormTarget import FormTarget
+from CatatanHandler.CatatanHarian.Boundary.HarianDisplay import HarianDisplay
+from CatatanHandler.CatatanHarian.Boundary.FormHarian import FormHarian
+from CatatanHandler.Calendar.Calendar import Calendar
+from CatatanHandler.Calendar.CalendarToDo import CalendarToDo
 
 # Creating connection
 con = QSqlDatabase.addDatabase("QSQLITE")
@@ -25,7 +25,7 @@ con.setDatabaseName("./src/Database/memoirs.sqlite")
 
 # Open the connection
 if not con.open():
-    print("Database Error: %s" % con.lastError().databaseText())
+    print(f"Database Error: {con.lastError().databaseText()}")
     sys.exit(1)
 
 # Create Passcode Table
@@ -51,6 +51,7 @@ createArticleTableQuery.exec(
     """
 )
 
+# Create To Do List Table
 createToDoListTableQuery = QSqlQuery()
 createToDoListTableQuery.exec(
     """
@@ -62,6 +63,7 @@ createToDoListTableQuery.exec(
     """
 )
 
+# Create Catatan Harian Table
 createCatatanHarianTableQuery = QSqlQuery()
 createCatatanHarianTableQuery.exec(
     """
@@ -75,6 +77,7 @@ createCatatanHarianTableQuery.exec(
     """
 )
 
+# Create Catatan Target Table
 createCatatanTargetTableQuery = QSqlQuery()
 createCatatanTargetTableQuery.exec(
     """
@@ -86,6 +89,7 @@ createCatatanTargetTableQuery.exec(
     """
 )
 
+# Create Catatan Syukur Table
 createCatatanSyukurTableQuery = QSqlQuery()
 createCatatanSyukurTableQuery.exec(
     """
@@ -101,7 +105,7 @@ class MainWindow(QMainWindow):
     # Constructor
     def __init__(self):
         super().__init__()
-        
+
         # Set initial size and window title
         self.resize(1280, 840)
         self.setWindowTitle("Memoirs")
@@ -139,13 +143,13 @@ class MainWindow(QMainWindow):
         )
 
         # If passcode exists, switch to login form, else switch to register form
-        if(query.first()):
+        if query.first():
             self.stackedWidget.setCurrentIndex(0)
         else:
             self.stackedWidget.setCurrentIndex(1)
 
     def initializeDataArticle(self):
-        f = open("./dataseed/dataArtikel.txt", 'r')
+        f = open("./dataseed/dataArtikel.txt", 'r', encoding='utf-8')
         lines = f.readlines()
 
         readTitle = True
@@ -154,10 +158,10 @@ class MainWindow(QMainWindow):
         content = ""
         image = ""
         for line in lines:
-            if(readTitle):
+            if readTitle:
                 title = line
                 readTitle = False
-            elif(line == "\n"):
+            elif line == "\n":
                 readTitle = True
                 query = QSqlQuery()
                 query.prepare(
