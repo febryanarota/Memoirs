@@ -1,5 +1,6 @@
 # Import libraries
 import sys
+from datetime import date
 from PyQt5.QtWidgets import QApplication, QMainWindow, QStackedWidget
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
 from AuthHandler.Boundary.Login import *
@@ -16,6 +17,7 @@ from CatatanHandler.CatatanTarget.Boundary.FormTarget import *
 from CatatanHandler.CatatanHarian.Boundary.HarianDisplay import *
 from CatatanHandler.CatatanHarian.Boundary.FormHarian import *
 from CatatanHandler.Calendar.Calendar import *
+from CatatanHandler.Calendar.CalendarToDo import *
 
 # Creating connection
 con = QSqlDatabase.addDatabase("QSQLITE")
@@ -104,7 +106,7 @@ class MainWindow(QMainWindow):
         self.resize(1280, 840)
         self.setWindowTitle("Memoirs")
         self.initializeDataArticle()
-        self.date = datetime.date.today().strftime('%Y-%m-%d')
+        self.date = date.today().strftime('%d/%m/%Y')
         self.editMode = False
 
         # Create stackedWidget for navigation
@@ -123,6 +125,7 @@ class MainWindow(QMainWindow):
         self.stackedWidget.addWidget(HarianDisplay(self))
         self.stackedWidget.addWidget(FormHarian(self))
         self.stackedWidget.addWidget(Calendar(self))
+        self.stackedWidget.addWidget(CalendarToDo(self))
 
         # Set central widget
         self.setCentralWidget(self.stackedWidget)
