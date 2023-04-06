@@ -1,3 +1,3 @@
-pip install pytest
-pip install PyQt5
-python -m pip install pylint
+pytest
+pylint
+PyQt5
