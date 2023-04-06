@@ -9,7 +9,13 @@ from CatatanHandler.Artikel.Boundary.ArtikelDisplay import *
 from CatatanHandler.Artikel.Boundary.ArtikelDetailDisplay import *
 from CatatanHandler.ToDoList.Boundary.TDLDisplay import *
 from CatatanHandler.ToDoList.Boundary.FormTDL import *
-import datetime
+from CatatanHandler.CatatanSyukur.Boundary.SyukurDisplay import *
+from CatatanHandler.CatatanSyukur.Boundary.FormSyukur import *
+from CatatanHandler.CatatanTarget.Boundary.TargetDisplay import *
+from CatatanHandler.CatatanTarget.Boundary.FormTarget import *
+from CatatanHandler.CatatanHarian.Boundary.HarianDisplay import *
+from CatatanHandler.CatatanHarian.Boundary.FormHarian import *
+from CatatanHandler.Calendar.Calendar import *
 
 # Creating connection
 con = QSqlDatabase.addDatabase("QSQLITE")
@@ -53,41 +59,40 @@ createToDoListTableQuery.exec(
     )
     """
 )
-#------------------TESTING------------------#
-# createToDoListTableQuery.exec(
-#     """
-#     INSERT INTO to_do_list (to_do, tanggal, done) VALUES ('Makan', '2021-05-01', 0)
-#     """
-# )
 
-# createToDoListTableQuery.exec(
-#     "SELECT * FROM to_do_list"
-# )
+createCatatanHarianTableQuery = QSqlQuery()
+createCatatanHarianTableQuery.exec(
+    """
+    CREATE TABLE catatan_harian(
+        tanggal VARCHAR(100),
+        jam_mulai VARCHAR(100),
+        jam_berakhir VARCHAR(100),
+        nama_kegiatan VARCHAR(40),
+        PRIMARY KEY (tanggal, jam_mulai, jam_berakhir, nama_kegiatan)
+    )
+    """
+)
 
-# while (createToDoListTableQuery.next()):
-#     print(createToDoListTableQuery.value(0))
-#     print(createToDoListTableQuery.value(1))
-#     print(createToDoListTableQuery.value(2))
+createCatatanTargetTableQuery = QSqlQuery()
+createCatatanTargetTableQuery.exec(
+    """
+    CREATE TABLE catatan_target(
+        target VARCHAR(1000),
+        tanggal VARCHAR(100),
+        PRIMARY KEY (target, tanggal)
+    )
+    """
+)
 
-
-# deletePasscodeQuery = QSqlQuery()
-# deletePasscodeQuery.exec(
-#     """
-#     DELETE FROM to_do_list
-#     """
-# )
-#----------------------------------------------#
-
-# To reset passcode for the mean time, execute this code below.
-# Delete Current Passcode
-# deletePasscodeQuery = QSqlQuery()
-# deletePasscodeQuery.exec(
-#     """
-#     DELETE FROM passcode
-#     """
-# )
-
-
+createCatatanSyukurTableQuery = QSqlQuery()
+createCatatanSyukurTableQuery.exec(
+    """
+    CREATE TABLE catatan_syukur(
+        syukur VARCHAR(1000),
+        tanggal VARCHAR(100) PRIMARY KEY
+    )
+    """
+)
 
 # Class MainWindow
 class MainWindow(QMainWindow):
@@ -111,6 +116,13 @@ class MainWindow(QMainWindow):
         self.stackedWidget.addWidget(ArtikelDetailDisplay(self))
         self.stackedWidget.addWidget(TDLDisplay(self, self.date))
         self.stackedWidget.addWidget(FormTDL(self, self.date))
+        self.stackedWidget.addWidget(SyukurDisplay(self))
+        self.stackedWidget.addWidget(FormSyukur(self))
+        self.stackedWidget.addWidget(TargetDisplay(self))
+        self.stackedWidget.addWidget(FormTarget(self))
+        self.stackedWidget.addWidget(HarianDisplay(self))
+        self.stackedWidget.addWidget(FormHarian(self))
+        self.stackedWidget.addWidget(Calendar(self))
 
         # Set central widget
         self.setCentralWidget(self.stackedWidget)
