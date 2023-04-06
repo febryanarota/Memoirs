@@ -10,8 +10,6 @@ stages:          # List of stages for jobs, and their order of execution
 
 pylint:
     stage: build
-    tags:
-      - build
     script:
     - echo "Building the code..."
     - pylint -d C0301 src/main.py
