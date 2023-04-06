@@ -1,4 +1,3 @@
-from PyQt5.QtSql import QSqlQuery
 from CatatanHandler.CatatanHarian.Entity.CatatanHarian import *
 
 class HarianController():
