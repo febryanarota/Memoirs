@@ -74,7 +74,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap>:/newPrefix/Items.png</pixmap>
+          <pixmap resource="../../../../../../../../../Downloads/tes.qrc">:/newPrefix/Items.png</pixmap>
          </property>
         </widget>
         <widget class="QLabel" name="label">
@@ -179,7 +179,7 @@
          <string/>
         </property>
         <property name="icon">
-         <iconset>
+         <iconset resource="../../../../../../../../../Downloads/tes.qrc">
           <normaloff>:/newPrefix/Back.png</normaloff>:/newPrefix/Back.png</iconset>
         </property>
         <property name="iconSize">
@@ -245,24 +245,46 @@
             <pointsize>11</pointsize>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">margin-top: 40px</string>
+          </property>
           <property name="text">
            <string>30/02/2023</string>
           </property>
          </widget>
         </item>
         <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Minimum</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
          <widget class="QPushButton" name="pushButton_3">
+          <property name="styleSheet">
+           <string notr="true">margin-top:40px</string>
+          </property>
           <property name="text">
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>../../../../../../../../Downloads/Edit_duotone_line (1).png</normaloff>../../../../../../../../Downloads/Edit_duotone_line (1).png</iconset>
+           <iconset resource="../../../../../../../../../Downloads/tes.qrc">
+            <normaloff>:/newPrefix/Date_range_light.png</normaloff>:/newPrefix/Date_range_light.png</iconset>
           </property>
           <property name="iconSize">
            <size>
-            <width>40</width>
-            <height>40</height>
+            <width>60</width>
+            <height>60</height>
            </size>
           </property>
           <property name="flat">
@@ -271,18 +293,37 @@
          </widget>
         </item>
         <item>
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Minimum</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
          <widget class="QPushButton" name="pushButton_2">
+          <property name="styleSheet">
+           <string notr="true">margin-right: 80px; margin-top: 40px</string>
+          </property>
           <property name="text">
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>../../../../../../../../Downloads/Add_round (1).png</normaloff>../../../../../../../../Downloads/Add_round (1).png</iconset>
+           <iconset resource="../../../../../../../../../Downloads/tes.qrc">
+            <normaloff>:/newPrefix/Add_round.png</normaloff>:/newPrefix/Add_round.png</iconset>
           </property>
           <property name="iconSize">
            <size>
-            <width>40</width>
-            <height>40</height>
+            <width>60</width>
+            <height>60</height>
            </size>
           </property>
           <property name="flat">
@@ -315,8 +356,8 @@
   </widget>
  </widget>
  <resources>
-  <include location="../../../../../../../../AppData/Downloads/tes.qrc"/>
-  <include location="../../../../../../../../Downloads/tes.qrc"/>
+  <include location="../../../../../../../../../Downloads/tes.qrc"/>
+  <include location="../../../../../../../../../Downloads/tes.qrc"/>
  </resources>
  <connections/>
 </ui>

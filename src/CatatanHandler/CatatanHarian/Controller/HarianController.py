@@ -18,18 +18,18 @@ class HarianController():
         listOfCatatanHarian = entityHarian.save()
         return listOfCatatanHarian
     
-    def editHarian(self, jam_mulai_baru, jam_mulai_lama, jam_berakhir, nama_kegiatan, tanggal):
+    def editHarian(self, harianLama, jam_mulai, jam_berakhir, nama_kegiatan, tanggal):
         # Create entity
-        entityHarian = CatatanHarian(tanggal,jam_mulai_baru,jam_berakhir,nama_kegiatan)
+        entityHarian = CatatanHarian(tanggal,jam_mulai,jam_berakhir,nama_kegiatan)
         
         # Edit CatatanHarian
-        listOfCatatanHarian = entityHarian.editHarian(tanggal,jam_mulai_lama)
+        listOfCatatanHarian = entityHarian.edit(harianLama.getJamMulai(), harianLama.getJamBerakhir(), harianLama.getKegiatan())
         return listOfCatatanHarian
     
-    def deleteHarian(self, jam_mulai,tanggal):
+    def deleteHarian(self, harian):
         # Create Entity
-        entityHarian = CatatanHarian(tanggal= tanggal,jam_mulai = jam_mulai)
+        entityHarian = harian
         
         # Delete CatatanHarian
-        listOfCatatanHarian = entityHarian.deleteHarian()
+        listOfCatatanHarian = entityHarian.delete()
         return listOfCatatanHarian

@@ -5,7 +5,7 @@ class CatatanHarian():
     def __init__(self, tanggal = "", jam_mulai = "", jam_berakhir= "", nama_kegiatan= ""):
         self.tanggal = tanggal
         self.jam_mulai = jam_mulai
-        self.jam_berakhir =jam_berakhir
+        self.jam_berakhir = jam_berakhir
         self.nama_kegiatan = nama_kegiatan
         
     # Get jam_mulai
@@ -32,15 +32,12 @@ class CatatanHarian():
         query.addBindValue(tanggal)
         query.exec()
 
-        # Iterate rows of query
-        query.first()
-
         # Initialize list
         listOfCatatanHarian = []
 
         # Append each row
-        for row in query.fetchall():
-            listOfCatatanHarian.append(CatatanHarian(row.value(0), row.value(1), row.value(2), row.value(3)))
+        while query.next():
+            listOfCatatanHarian.append(CatatanHarian(query.value(0), query.value(1), query.value(2), query.value(3)))
         
         # Return List of CatatanHarian
         return listOfCatatanHarian 
@@ -61,18 +58,20 @@ class CatatanHarian():
         listOfCatatanHarian = self.getHarian(self.tanggal)
         return listOfCatatanHarian
     
-    def edit(self,jam_mulai_lama):
+    def edit(self,jam_mulai_lama, jam_berakhir_lama, kegiatan_lama):
         # TO DO (EDIT QUERY)
         query = QSqlQuery()
 
         # Prepare and execute query to update a CatatanHarian
-        query.prepare("UPDATE catatan_harian SET tanggal = (?), jam_mulai = (?), jam_berakhir = (?), nama_kegiatan = (?) WHERE tanggal = (?) AND jam_mulai = (?)")
+        query.prepare("UPDATE catatan_harian SET tanggal = (?), jam_mulai = (?), jam_berakhir = (?), nama_kegiatan = (?) WHERE tanggal = (?) AND jam_mulai = (?) AND jam_berakhir = (?) AND nama_kegiatan = (?)")
         query.addBindValue(self.tanggal)
         query.addBindValue(self.jam_mulai)
         query.addBindValue(self.jam_berakhir)
         query.addBindValue(self.nama_kegiatan)
         query.addBindValue(self.tanggal)
         query.addBindValue(jam_mulai_lama)
+        query.addBindValue(jam_berakhir_lama)
+        query.addBindValue(kegiatan_lama)
         query.exec()
 
         # Call a function to show all CatatanHarian
@@ -84,9 +83,11 @@ class CatatanHarian():
         query = QSqlQuery()
 
         # Prepare and execute query to delete a CatatanHarian
-        query.prepare("DELETE FROM catatan_harian WHERE tanggal = (?) AND jam_mulai = (?)")
+        query.prepare("DELETE FROM catatan_harian WHERE tanggal = (?) AND jam_mulai = (?) AND jam_berakhir = (?) AND nama_kegiatan = (?)")
         query.addBindValue(self.tanggal)
         query.addBindValue(self.jam_mulai)
+        query.addBindValue(self.jam_berakhir)
+        query.addBindValue(self.nama_kegiatan)
         query.exec()
         
         # Call a function to show all CatatanHarian
