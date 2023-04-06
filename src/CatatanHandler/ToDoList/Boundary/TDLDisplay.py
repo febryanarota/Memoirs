@@ -3,19 +3,20 @@ from PyQt5.QtWidgets import QWidget, QApplication, QMainWindow, QLabel, QScrollA
 from PyQt5 import uic
 from PyQt5.QtGui import QFont, QPixmap, QIcon
 from PyQt5.QtCore import Qt
-from CatatanHandler.ToDoList.Boundary.FormTDL import *
+# from CatatanHandler.ToDoList.Boundary.FormTDL import *
 from CatatanHandler.ToDoList.Entity.ToDoList import *
 from functools import partial
 from CatatanHandler.ToDoList.Controller.TDLController import *
+from CatatanHandler.ToDoList.Boundary.todolist import *
 from datetime import datetime
 
 # Class ToDoListDisplay
 class TDLDisplay(QMainWindow):
     # Constructor
-    def __init__(self, Main, tanggal):
+    def __init__(self, Main, tanggal = datetime.now().strftime("%d/%m/%Y")):
         super().__init__()
         self.parent = Main
-        self.tanggal = tanggal
+        self.parent.date = tanggal
         self.showTDLDisplay(tanggal)
 
     def showTDLDisplay(self, tanggal):
@@ -28,13 +29,19 @@ class TDLDisplay(QMainWindow):
         self.back_button.clicked.connect(self.back)
 
         self.add_button = self.findChild(QPushButton, "pushButton_2")
-        self.add_button.clicked.connect(self.showFormTDL)
+        self.add_button.clicked.connect(self.addTDL)
 
         self.exit = self.findChild(QLabel, "label_7")
         self.exit.mousePressEvent = self.exitEvent
 
         self.main_menu = self.findChild(QLabel, "label_2")
         self.main_menu.mousePressEvent = self.back
+
+        self.date = self.findChild(QLabel, "label_3")
+        self.date.setText(self.parent.date)
+
+        self.calendar = self.findChild(QPushButton, "pushButton_3")
+        self.calendar.clicked.connect(self.showCalendar)
 
         self.scrollArea = self.findChild(QScrollArea, "scrollArea")
         self.scrollArea.verticalScrollBar().setStyleSheet(
@@ -57,14 +64,14 @@ class TDLDisplay(QMainWindow):
 
         todolistController = TDLController()
         listTodo = todolistController.showTDL(tanggal)
-
+        listTodo.sort(key=lambda x: x.getDone())
         # Container Widget       
         self.widget = QWidget()
         
         # Layout of Container Widget
         listTDL_box = QVBoxLayout()
         listTDL_box.setSpacing(20)
-
+    
         for i in range (len(listTodo)):
             TDL_widget = QWidget()
             TDL_widget.setStyleSheet("background-color: white; border-radius: 20px; margin-right: 20px")
@@ -77,13 +84,21 @@ class TDLDisplay(QMainWindow):
             spacer = QSpacerItem(20, 0, QSizePolicy.Fixed, QSizePolicy.Minimum)
             TDL_box.addItem(spacer)
 
-            button = QPushButton()
-            button.setStyleSheet("margin-right: 20px")
+            check_icon = QPushButton()
             img = QPixmap("./images/checkBox.png")
-            image = img.scaled(30, 30, Qt.KeepAspectRatio, Qt.FastTransformation)
-            button.setIcon(QIcon(image))
-            button.setIconSize(image.size())
-            TDL_box.addWidget(button)
+            if listTodo[i].getDone() == 1:
+                img = QPixmap("./images/checked.png")
+            image = img.scaled(30, 30)
+            check_icon.setIcon(QIcon(image))
+            check_icon.setIconSize(image.size())
+            check_icon.setStyleSheet('''QPushButton::hover{
+                background-color: rgba(202, 202, 202, 0.5);
+                width: 20px;
+                height: 30px;
+                border-radius: 10px;
+            }''')
+            check_icon.mousePressEvent = partial(self.checkTDL, todo = listTodo[i])
+            TDL_box.addWidget(check_icon)
             
             TDL_content_widget = QWidget()
             TDL_content = QVBoxLayout()
@@ -98,10 +113,10 @@ class TDLDisplay(QMainWindow):
             TDL_box.addItem(spacer2)
 
             delete_icon = QLabel()
+            delete_icon.setObjectName("delete")
             icon = QPixmap("./images/delete_btn.png")
             icon = icon.scaled(30, 30, Qt.KeepAspectRatio, Qt.FastTransformation)
             delete_icon.setPixmap(icon)
-            delete_icon.setObjectName("delete")
             delete_icon.mousePressEvent = partial(self.deleteTDL, deleteToDo = listTodo[i].getToDo(), deleteTanggal = listTodo[i].getTanggal())
             TDL_box.addWidget(delete_icon)
 
@@ -110,7 +125,7 @@ class TDLDisplay(QMainWindow):
             icon = icon.scaled(30, 30, Qt.KeepAspectRatio, Qt.FastTransformation)
             edit_icon.setPixmap(icon)
             edit_icon.setObjectName("edit")
-            edit_icon.mousePressEvent = partial(self.showFormTDL, listTodo[i].getToDo(), listTodo[i].getTanggal())
+            edit_icon.mousePressEvent = partial(self.editTDL,todo_list_lama = listTodo[i], todo_lama =  listTodo[i].getToDo(), tanggal = listTodo[i].getTanggal())
             TDL_box.addWidget(edit_icon)
 
             TDL_widget.setLayout(TDL_box)
@@ -118,21 +133,54 @@ class TDLDisplay(QMainWindow):
 
         self.widget.setLayout(listTDL_box)
         self.scrollArea.setWidget(self.widget)
+
+    def get_done_status(todo_item):
+        return todo_item.getDone()      
             
-            
-    def showFormTDL(self, event):
-        # second_window = FormTDL(self)
+    def addTDL(self, event):
+        # Turn off edit mode
+        self.parent.editMode = False
+
+        # Clear inputbox
+        self.parent.stackedWidget.widget(6).inputbox.setText("")
+
+        # Set form date
+        self.parent.stackedWidget.widget(6).date.setText(self.parent.date)
+
         self.parent.stackedWidget.setCurrentIndex(6)
-        
+
+    def editTDL(self, event, todo_list_lama, todo_lama, tanggal):
+        self.parent.stackedWidget.widget(6).inputbox.setText(todo_lama)
+        self.parent.stackedWidget.widget(6).date.setText(tanggal)
+
+        self.parent.editMode = True
+
+        self.parent.date = tanggal
+        self.parent.todo_list_lama = todo_list_lama
+
+        self.parent.stackedWidget.setCurrentIndex(6)
+
+    def deleteTDL(self, event, deleteToDo, deleteTanggal):
+        TDLController().deleteTDL(deleteToDo, deleteTanggal)
+        self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(5))
+        self.parent.stackedWidget.insertWidget(5, TDLDisplay(self.parent, deleteTanggal))
+        self.parent.stackedWidget.setCurrentIndex(5)
+
+    def checkTDL(self, event, todo):
+        if todo.getDone() == 1:
+            done = 0
+        else:
+            done = 1
+        TDLController().editTDL(todo, todo.getToDo(), todo.getTanggal(), done)
+        self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(5))
+        self.parent.stackedWidget.insertWidget(5, TDLDisplay(self.parent, todo.getTanggal()))
+        self.parent.stackedWidget.setCurrentIndex(5)
+
+    def showCalendar(self, event):
+        self.parent.stackedWidget.setCurrentIndex(7)
 
     def back(self, event):
         self.parent.stackedWidget.setCurrentIndex(2)
         
     def exitEvent(self, event):
         QApplication.quit()
-    
-        
-
-    def deleteTDL(self, event, deleteToDo, deleteTanggal):
-        TDLController().deleteTDL(deleteToDo, deleteTanggal)
-        # self.showTDLDisplay(tanggal

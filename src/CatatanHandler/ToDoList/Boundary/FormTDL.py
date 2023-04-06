@@ -6,16 +6,17 @@ from functools import partial
 from CatatanHandler.ToDoList.Controller.TDLController import *
 from CatatanHandler.ToDoList.Boundary.TDLDisplay import *
 from CatatanHandler.ToDoList.Boundary.FormTDL import *
+from CatatanHandler.ToDoList.Boundary.todolist import *
 from datetime import datetime
 
 class FormTDL(QMainWindow):
-    def __init__(self, Main, date):
+    def __init__(self, Main, tanggal = datetime.now().strftime("%d/%m/%Y")):
         super().__init__()
+        self.formDate = tanggal
         self.parent = Main
-        self.tanggal = date
-        self.showFormTDL(self.tanggal)
+        self.showFormTDL()
 
-    def showFormTDL(self, tanggal):
+    def showFormTDL(self):
         uic.loadUi("./src/CatatanHandler/ToDoList/Boundary/FORMTDL.ui", self)
         self.inputbox = self.findChild(QLineEdit, "lineEdit")
         self.inputbox.setPlaceholderText("insert your task here...")
@@ -32,32 +33,28 @@ class FormTDL(QMainWindow):
         self.exit = self.findChild(QLabel, "label_7")
         self.exit.mousePressEvent = self.exitEvent
         
-
         self.date = self.findChild(QLabel, "label_3")
-        if(self.parent.editMode):
-            self.date.setText(self.parent.date)
-        else:
-            self.date.setText(datetime.now().strftime("%d/%m/%Y"))
+        self.date.setText(self.formDate)
 
+    def add(self, event):
+        task = self.inputbox.text()
+        TDLController().addTDL(task, self.date.text())
+        self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(5))
+        self.parent.stackedWidget.insertWidget(5,TDLDisplay(self.parent, self.date.text()))
+        self.parent.stackedWidget.setCurrentIndex(5)
+
+    def edit(self):
+        to_do = self.inputbox.text()
+        tanggal = self.date.text()
+        done = self.parent.todo_list_lama.getDone()
+        TDLController().editTDL(self.parent.todo_list_lama, to_do, tanggal, done)
+
+        self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(5))
+        self.parent.stackedWidget.insertWidget(5,TDLDisplay(self.parent, self.date.text()))
+        self.parent.stackedWidget.setCurrentIndex(5)
 
     def back(self, event):
         self.parent.stackedWidget.setCurrentIndex(5)
     
     def exitEvent(self, event):
         QApplication.quit()
-
-    def add(self, event):
-        task = self.inputbox.text()
-        TDLController().addTDL(task, self.tanggal)
-        self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(5))
-        self.parent.stackedWidget.insertWidget(5, TDLDisplay(self.parent, self.tanggal))
-        self.parent.stackedWidget.setCurrentIndex(5)
-
-        # remove the widget
-        # self.parent.stackedWidget.removeWidget(widget_to_remove)
-
-        # # create a new widget
-        # new_widget = TDLDisplay(self.parent, self.tanggal)
-
-        # add the new widget at the same index
-        # self.parent.stackedWidget.insertWidget(5, TDLDisplay(self.parent, self.tanggal))
