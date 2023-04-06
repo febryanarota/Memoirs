@@ -12,22 +12,22 @@ pylint:
     stage: build
     script:
     - echo "Building the code..."
-    - pylint -d C0301 E0401 C0114 C0115 C0103 C0116 E0401 src/main.py
-    - pylint -d C0301 E0401 C0114 C0115 C0103 C0116 E0401 src/CatatanHandler/CatatanHarian/Boundary/FormHarian.py
-    - pylint -d C0301 E0401 C0114 C0115 C0103 C0116 E0401 src/CatatanHandler/CatatanHarian/Boundary/HarianDisplay.py
-    - pylint -d C0301 E0401 C0114 C0115 C0103 C0116 E0401 src/CatatanHandler/CatatanHarian/Controller/HarianController.py
-    - pylint -d C0301 E0401 C0114 C0115 C0103 C0116 E0401 src/CatatanHandler/CatatanHarian/Entity/CatatanHarian.py
-    - pylint -d C0301 E0401 C0114 C0115 C0103 C0116 E0401 src/CatatanHandler/Calendar/Calendar.py
-    - pylint -d C0301 E0401 C0114 C0115 C0103 C0116 E0401 src/CatatanHandler/Calendar/CalendarToDo.py
-    - pylint -d C0301 E0401 C0114 C0115 C0103 C0116 E0401 src/CatatanHandler/ConfirmPopUp/ConfirmPopUp.py
-    - pylint -d C0301 E0401 C0114 C0115 C0103 C0116 E0401 src/CatatanHandler/CatatanTarget/Boundary/FormTarget.py
-    - pylint -d C0301 E0401 C0114 C0115 C0103 C0116 E0401 src/CatatanHandler/CatatanTarget/Boundary/TargetDisplay.py
-    - pylint -d C0301 E0401 C0114 C0115 C0103 C0116 E0401 src/CatatanHandler/CatatanTarget/Entity/CatatanTarget.py
-    - pylint -d C0301 E0401 C0114 C0115 C0103 C0116 E0401 src/CatatanHandler/CatatanTarget/Controller/TargetController.py
-    - pylint -d C0301 E0401 C0114 C0115 C0103 C0116 E0401 src/CatatanHandler/CatatanSyukur/Boundary/FormSyukur.py
-    - pylint -d C0301 E0401 C0114 C0115 C0103 C0116 E0401 src/CatatanHandler/CatatanSyukur/Boundary/SyukurDisplay.py
-    - pylint -d C0301 E0401 C0114 C0115 C0103 C0116 E0401 src/CatatanHandler/CatatanSyukur/Entity/CatatanSyukur.py
-    - pylint -d C0301 E0401 C0114 C0115 C0103 C0116 E0401 src/CatatanHandler/CatatanSyukur/Controller/SyukurController.py
+    - pylint -d C0301,E0401,C0114,C0115,C0103,C0116 src/main.py
+    - pylint -d C0301,E0401,C0114,C0115,C0103,C0116 src/CatatanHandler/CatatanHarian/Boundary/FormHarian.py
+    - pylint -d C0301,E0401,C0114,C0115,C0103,C0116 src/CatatanHandler/CatatanHarian/Boundary/HarianDisplay.py
+    - pylint -d C0301,E0401,C0114,C0115,C0103,C0116 src/CatatanHandler/CatatanHarian/Controller/HarianController.py
+    - pylint -d C0301,E0401,C0114,C0115,C0103,C0116 src/CatatanHandler/CatatanHarian/Entity/CatatanHarian.py
+    - pylint -d C0301,E0401,C0114,C0115,C0103,C0116 src/CatatanHandler/Calendar/Calendar.py
+    - pylint -d C0301,E0401,C0114,C0115,C0103,C0116 src/CatatanHandler/Calendar/CalendarToDo.py
+    - pylint -d C0301,E0401,C0114,C0115,C0103,C0116 src/CatatanHandler/ConfirmPopUp/ConfirmPopUp.py
+    - pylint -d C0301,E0401,C0114,C0115,C0103,C0116 src/CatatanHandler/CatatanTarget/Boundary/FormTarget.py
+    - pylint -d C0301,E0401,C0114,C0115,C0103,C0116 src/CatatanHandler/CatatanTarget/Boundary/TargetDisplay.py
+    - pylint -d C0301,E0401,C0114,C0115,C0103,C0116 src/CatatanHandler/CatatanTarget/Entity/CatatanTarget.py
+    - pylint -d C0301,E0401,C0114,C0115,C0103,C0116 src/CatatanHandler/CatatanTarget/Controller/TargetController.py
+    - pylint -d C0301,E0401,C0114,C0115,C0103,C0116 src/CatatanHandler/CatatanSyukur/Boundary/FormSyukur.py
+    - pylint -d C0301,E0401,C0114,C0115,C0103,C0116 src/CatatanHandler/CatatanSyukur/Boundary/SyukurDisplay.py
+    - pylint -d C0301,E0401,C0114,C0115,C0103,C0116 src/CatatanHandler/CatatanSyukur/Entity/CatatanSyukur.py
+    - pylint -d C0301,E0401,C0114,C0115,C0103,C0116 src/CatatanHandler/CatatanSyukur/Controller/SyukurController.py
 
     - echo "Building complete."
 
