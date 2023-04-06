@@ -1,5 +1,5 @@
 # Import libraries
-from PyQt5.QtWidgets import QDateEdit, QTextEdit, QApplication, QMainWindow, QLabel, QScrollArea, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy, QLineEdit
+from PyQt5.QtWidgets import QDateEdit, QTextEdit, QApplication, QMainWindow, QLabel, QPushButton
 from PyQt5 import uic
 from CatatanHandler.CatatanTarget.Boundary.TargetDisplay import *
 from CatatanHandler.CatatanTarget.Boundary.TargetImages import *
