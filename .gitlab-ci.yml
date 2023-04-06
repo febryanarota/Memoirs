@@ -13,6 +13,10 @@ pylint:
     script:
     - echo "Building the code..."
     - pylint -d C0301 src/main.py
+    - pylint -d C0301 src/CatatanHandler/ToDoList/Boundary/FormTDL.py
+    - pylint -d C0301 src/CatatanHandler/ToDoList/Boundary/TDLDisplay.py
+    - pylint -d C0301 src/CatatanHandler/ToDoList/Controller/TDLController.py
+    - pylint -d C0301 src/CatatanHandler/ToDoList/Entity/ToDoList.py
     - echo "Building complete."
 
 pytest:
