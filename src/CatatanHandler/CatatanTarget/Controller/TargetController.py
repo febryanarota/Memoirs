@@ -1,4 +1,3 @@
-from PyQt5.QtSql import QSqlQuery
 from CatatanHandler.CatatanTarget.Entity.CatatanTarget import *
 
 class TargetController():
