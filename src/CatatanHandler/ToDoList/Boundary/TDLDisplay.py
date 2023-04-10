@@ -1,5 +1,5 @@
 # Import libraries
-from PyQt5.QtWidgets import QWidget, QApplication, QMainWindow, QLabel, QScrollArea, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy, QSpacerItem
+from PyQt5.QtWidgets import QWidget, QApplication, QMainWindow, QLabel, QScrollArea, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy, QSpacerItem, QGraphicsDropShadowEffect
 from PyQt5 import uic
 from PyQt5.QtGui import QFont, QPixmap, QIcon
 from PyQt5.QtCore import Qt
@@ -73,10 +73,16 @@ class TDLDisplay(QMainWindow):
         listTDL_box.setSpacing(20)
     
         for i in range (len(listTodo)):
+
             TDL_widget = QWidget()
             TDL_widget.setStyleSheet("background-color: white; border-radius: 20px; margin-right: 20px")
             TDL_widget.setMinimumSize(1150, 70)
             TDL_widget.setMaximumSize(1150, 70)
+
+            shadow = QGraphicsDropShadowEffect()
+            shadow.setBlurRadius(5)
+            shadow.setOffset(4,4)
+            TDL_widget.setGraphicsEffect(shadow)
 
             TDL_box = QHBoxLayout()
 
