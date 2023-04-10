@@ -50,6 +50,9 @@ class CalendarToDo(QMainWindow):
         self.exit = self.findChild(QLabel, "label_7")
         self.exit.mousePressEvent = self.exitEvent
 
+        self.title = self.findChild(QLabel, "label_9")
+        self.title.setText("To Do List")
+
     def chooseDate(self, date):
         # Select date and navigate to notes page
         choosen_date = date.toString("dd/MM/yyyy")
