@@ -2,7 +2,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow, QPushButton, QLabel, QLineEdit, QVBoxLayout, QWidget, QSizePolicy, QSpacerItem
 from PyQt5.QtGui import QFont
-from AuthHandler.Controller.AuthController import *
+from AuthHandler.Controller.AuthController import AuthController
 
 # Class Register
 class Register(QMainWindow):
@@ -52,7 +52,7 @@ class Register(QMainWindow):
         vbox = QVBoxLayout()
         vbox.setSpacing(0)
         vbox.setContentsMargins(0,0,0,0)
-        
+
         # Create horizontal spacer
         horizontalSpacer = QSpacerItem(0, 0, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
@@ -68,10 +68,10 @@ class Register(QMainWindow):
         # Set layout
         container = QWidget()
         container.setLayout(vbox)
-        
+
         # Set central widget
         self.setCentralWidget(container)
-    
+
     def handleChangePasscode(self):
         # Method to handle input change
         self.passcode = self.input.text()
@@ -84,7 +84,7 @@ class Register(QMainWindow):
         condition = controller.register(self.passcode)
 
         # Check return value
-        if(condition == 0):
+        if condition == 0 :
             self.parent.stackedWidget.setCurrentIndex(0)
         else:
             self.label3.setText("Passcode Tidak Valid!")

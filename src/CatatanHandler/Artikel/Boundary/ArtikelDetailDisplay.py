@@ -1,9 +1,7 @@
 # Import libraries
 from PyQt5.QtWidgets import QWidget, QApplication, QMainWindow, QLabel, QScrollArea, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy
-from PyQt5 import uic
+from PyQt5 import uic, QtCore
 from PyQt5.QtGui import QFont, QPixmap
-from CatatanHandler.Artikel.Boundary.ArtikelDisplay import *
-from CatatanHandler.Artikel.Boundary.ArtikelImages import *
 
 # Class Register
 class ArtikelDetailDisplay(QMainWindow):
@@ -47,9 +45,9 @@ class ArtikelDetailDisplay(QMainWindow):
         self.title = self.findChild(QLabel, "label_9")
         self.title.setStyleSheet("margin: 40px 0;")
 
-        # Container Widget       
+        # Container Widget
         self.widget = QWidget()
-        
+
         # Layout of Container Widget
         main_article_box = QVBoxLayout()
         main_article_box.setSpacing(0)
@@ -100,8 +98,8 @@ class ArtikelDetailDisplay(QMainWindow):
     def showArtikelDisplay(self):
         self.parent.stackedWidget.setCurrentIndex(3)
 
-    def back(self, event):
+    def back(self):
         self.parent.stackedWidget.setCurrentIndex(2)
 
-    def exitEvent(self, event):
+    def exitEvent(self):
         QApplication.quit()

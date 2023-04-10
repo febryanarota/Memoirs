@@ -177,7 +177,7 @@ class TDLDisplay(QMainWindow):
         self.parent.stackedWidget.setCurrentIndex(5)
 
     def showCalendar(self, event):
-        self.parent.stackedWidget.setCurrentIndex(7)
+        self.parent.stackedWidget.setCurrentIndex(14)
 
     def back(self, event):
         self.parent.stackedWidget.setCurrentIndex(2)

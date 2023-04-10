@@ -59,7 +59,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="tes.qrc">:/newPrefix/Group 6.png</pixmap>
+       <pixmap resource="../../../../../../../Downloads/tes.qrc">:/newPrefix/Group 6.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -107,7 +107,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="tes.qrc">:/newPrefix/Items.png</pixmap>
+          <pixmap resource="../../../../../../../Downloads/tes.qrc">:/newPrefix/Items.png</pixmap>
          </property>
         </widget>
         <widget class="QLabel" name="label">
@@ -228,7 +228,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="tes.qrc">:/newPrefix/Asset 1 1.png</pixmap>
+        <pixmap resource="../../../../../../../Downloads/tes.qrc">:/newPrefix/Asset 1 1.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -250,7 +250,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="tes.qrc">:/newPrefix/Asset 41 1.png</pixmap>
+        <pixmap resource="../../../../../../../Downloads/tes.qrc">:/newPrefix/Asset 41 1.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -269,7 +269,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="tes.qrc">:/newPrefix/Asset 31 1.png</pixmap>
+        <pixmap resource="../../../../../../../Downloads/tes.qrc">:/newPrefix/Asset 31 1.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -288,7 +288,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="tes.qrc">:/newPrefix/Asset 42 1.png</pixmap>
+        <pixmap resource="../../../../../../../Downloads/tes.qrc">:/newPrefix/Asset 42 1.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -307,7 +307,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="tes.qrc">:/newPrefix/Asset 55 1.png</pixmap>
+        <pixmap resource="../../../../../../../Downloads/tes.qrc">:/newPrefix/Asset 55 1.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -500,6 +500,7 @@
   </widget>
  </widget>
  <resources>
+  <include location="../../../../../../../Downloads/tes.qrc"/>
   <include location="tes.qrc"/>
  </resources>
  <connections/>
