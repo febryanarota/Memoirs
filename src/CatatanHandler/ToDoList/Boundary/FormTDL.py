@@ -28,13 +28,19 @@ class FormTDL(QMainWindow):
         self.cancel_button.clicked.connect(self.back)
 
         self.save_button = self.findChild(QPushButton, "save")
-        self.save_button.clicked.connect(self.add)
+        self.save_button.clicked.connect(self.confirm)
 
         self.exit = self.findChild(QLabel, "label_7")
         self.exit.mousePressEvent = self.exitEvent
         
         self.date = self.findChild(QLabel, "label_3")
         self.date.setText(self.formDate)
+
+    def confirm(self, event):
+        if(self.parent.editMode):
+            self.edit()
+        else:
+            self.add(event)
 
     def add(self, event):
         task = self.inputbox.text()
