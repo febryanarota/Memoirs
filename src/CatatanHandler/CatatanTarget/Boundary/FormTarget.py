@@ -40,7 +40,7 @@ class FormTarget(QMainWindow):
         shadow.setOffset(4,4)
 
         self.back_button = self.findChild(QPushButton, "pushButton")
-        self.back_button.clicked.connect(self.back)
+        self.back_button.clicked.connect(self.navigateTarget)
         self.back_button.setGraphicsEffect(shadow)
 
         self.cancel_button = self.findChild(QPushButton, "cancel")
@@ -70,7 +70,7 @@ class FormTarget(QMainWindow):
         self.widget.setGraphicsEffect(shadow)
         
     def back(self, event):
-        self.parent.stackedWidget.setCurrentIndex(9)
+        self.parent.stackedWidget.setCurrentIndex(2)
     
     def exitEvent(self, event):
         QApplication.quit()

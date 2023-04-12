@@ -41,7 +41,7 @@ class FormHarian(QMainWindow):
 
         # Back Button
         self.back_button = self.findChild(QPushButton, "pushButton")
-        self.back_button.clicked.connect(self.back)
+        self.back_button.clicked.connect(self.navigateHarianDisplay)
         self.back_button.setGraphicsEffect(shadow)
 
         # Cancel Button
@@ -80,7 +80,7 @@ class FormHarian(QMainWindow):
         self.widget.setGraphicsEffect(shadow)
 
     def back(self, event):
-        self.parent.stackedWidget.setCurrentIndex(11)
+        self.parent.stackedWidget.setCurrentIndex(2)
     
     def exitEvent(self, event):
         QApplication.quit()
@@ -138,3 +138,6 @@ class FormHarian(QMainWindow):
     def navigateHarian(self, event):
         self.parent.stackedWidget.widget(13).calendar.setSelectedDate(QDate())
         self.parent.stackedWidget.setCurrentIndex(13)
+    
+    def navigateHarianDisplay(self, event):
+        self.parent.stackedWidget.setCurrentIndex(11)

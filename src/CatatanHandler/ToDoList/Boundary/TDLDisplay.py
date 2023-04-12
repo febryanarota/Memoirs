@@ -102,8 +102,11 @@ class TDLDisplay(QMainWindow):
                     margin-right: 80px;
                 }
                 #delete {
-                    margin-right: 10px;
+                    margin-right: 80px;
                 }
+                #edit{
+                        margin-right: 0px;
+                    }
                 #checklist{
                     margin-right: 0px;
                 }
@@ -128,6 +131,24 @@ class TDLDisplay(QMainWindow):
             img = QPixmap("./images/checkBox.png")
             if listTodo[i].getDone() == 1:
                 img = QPixmap("./images/checked.png")
+                TDL_widget.setStyleSheet("""
+                    #Outer {
+                        background-color: #E5E5E5;; 
+                        border-radius: 20px;
+                    }
+                    QWidget {
+                        margin-right: 80px;
+                    }
+                    #delete {
+                        margin-right: 80px;
+                    }
+                    #edit{
+                        margin-right: 0px;
+                    }
+                    #checklist{
+                        margin-right: 0px;
+                    }
+                """)
             image = img.scaled(30, 30)
             check_icon.setIcon(QIcon(image))
             check_icon.setIconSize(image.size())
@@ -144,6 +165,8 @@ class TDLDisplay(QMainWindow):
             TDL_content = QVBoxLayout()
             to_do = QLabel(listTodo[i].getToDo())
             to_do.setFont(QFont("Poppins", 12, QFont.Bold))
+            if listTodo[i].getDone() == 1:
+                to_do.setStyleSheet("text-decoration: line-through;")
 
             TDL_content.addWidget(to_do)
             TDL_content_widget.setLayout(TDL_content)
@@ -158,15 +181,17 @@ class TDLDisplay(QMainWindow):
             icon = icon.scaled(30, 30, Qt.KeepAspectRatio, Qt.FastTransformation)
             delete_icon.setPixmap(icon)
             delete_icon.mousePressEvent = partial(self.deleteTDL, deleteToDo = listTodo[i].getToDo(), deleteTanggal = listTodo[i].getTanggal())
-            TDL_box.addWidget(delete_icon)
 
             edit_icon = QLabel()
+            edit_icon.setObjectName("edit")
             icon = QPixmap("./images/edit_btn.png")
             icon = icon.scaled(30, 30, Qt.KeepAspectRatio, Qt.FastTransformation)
             edit_icon.setPixmap(icon)
             edit_icon.setObjectName("edit")
             edit_icon.mousePressEvent = partial(self.editTDL,todo_list_lama = listTodo[i], todo_lama =  listTodo[i].getToDo(), tanggal = listTodo[i].getTanggal())
+            
             TDL_box.addWidget(edit_icon)
+            TDL_box.addWidget(delete_icon)
 
             TDL_widget.setLayout(TDL_box)
             listTDL_box.addWidget(TDL_widget)

@@ -43,7 +43,7 @@ class FormTDL(QMainWindow):
         self.inputbox.setPlaceholderText("insert your task here...")
 
         self.back_button = self.findChild(QPushButton, "pushButton")
-        self.back_button.clicked.connect(self.back)
+        self.back_button.clicked.connect(self.navigateToDoList)
 
         self.cancel_button = self.findChild(QPushButton, "cancel")
         self.cancel_button.clicked.connect(self.back)
@@ -81,7 +81,7 @@ class FormTDL(QMainWindow):
         self.parent.stackedWidget.setCurrentIndex(5)
 
     def back(self, event):
-        self.parent.stackedWidget.setCurrentIndex(5)
+        self.parent.stackedWidget.setCurrentIndex(2)
     
     def navigateArticle(self, event):
         self.parent.stackedWidget.setCurrentIndex(3)

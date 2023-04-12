@@ -42,7 +42,7 @@ class FormSyukur(QMainWindow):
 
         # Back Button
         self.back_button = self.findChild(QPushButton, "pushButton")
-        self.back_button.clicked.connect(self.back)
+        self.back_button.clicked.connect(self.navigateSyukur)
         self.back_button.setGraphicsEffect(shadow)
         
         # Cancel Button
@@ -74,7 +74,7 @@ class FormSyukur(QMainWindow):
         self.widget.setGraphicsEffect(shadow)
         
     def back(self, event):
-        self.parent.stackedWidget.setCurrentIndex(7)
+        self.parent.stackedWidget.setCurrentIndex(2)
     
     def exitEvent(self, event):
         QApplication.quit()

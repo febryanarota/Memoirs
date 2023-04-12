@@ -63,7 +63,7 @@ class CalendarToDo(QMainWindow):
 
         # Back Button
         self.back_button = self.findChild(QPushButton, "pushButton")
-        self.back_button.clicked.connect(self.back)
+        self.back_button.clicked.connect(self.navigateToDoList)
 
         # Exit Button
         self.exit = self.findChild(QLabel, "label_7")
@@ -81,7 +81,7 @@ class CalendarToDo(QMainWindow):
         self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(6))
     
     def back(self, event):
-        self.parent.stackedWidget.setCurrentIndex(5)
+        self.parent.stackedWidget.setCurrentIndex(2)
 
     def navigateArticle(self, event):
         self.parent.stackedWidget.setCurrentIndex(3)
