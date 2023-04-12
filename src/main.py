@@ -3,6 +3,7 @@ import sys
 from datetime import date
 from PyQt5.QtWidgets import QApplication, QMainWindow, QStackedWidget
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
+from PyQt5.QtGui import QIcon
 from AuthHandler.Boundary.Login import Login
 from AuthHandler.Boundary.Register import Register
 from MainMenu.MainMenu import MainMenu
@@ -112,6 +113,7 @@ class MainWindow(QMainWindow):
         # Set initial size and window title
         self.resize(1280, 840)
         self.setWindowTitle("Memoirs")
+        self.setWindowIcon(QIcon("./images/M.png"))
         self.initializeDataArticle()
         self.date = date.today().strftime('%d/%m/%Y')
         self.editMode = False
