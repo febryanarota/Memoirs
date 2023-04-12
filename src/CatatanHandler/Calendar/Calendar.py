@@ -1,7 +1,8 @@
 # Import libraries
-from PyQt5.QtWidgets import QCalendarWidget, QApplication, QMainWindow, QLabel, QPushButton
+from PyQt5.QtWidgets import QCalendarWidget, QApplication, QMainWindow, QLabel, QPushButton, QToolButton
 from PyQt5 import uic
 from PyQt5.QtCore import QDate
+from PyQt5.QtGui import QIcon
 from CatatanHandler.Calendar.CalendarImages import *
 from CatatanHandler.CatatanHarian.Boundary.HarianDisplay import *
 
@@ -38,8 +39,7 @@ class Calendar(QMainWindow):
 
         # Calendar Widget
         self.calendar = self.findChild(QCalendarWidget, "calendarWidget")
-        self.calendar.setSelectedDate(QDate.fromString(datetime.now().strftime("%d/%m/%Y")))
-        self.calendar.setSelectedDate(QDate())
+        self.calendar.setSelectedDate(QDate.currentDate())
         self.calendar.clicked.connect(self.chooseDate)
 
         # Navigation Buttons
@@ -53,6 +53,14 @@ class Calendar(QMainWindow):
         # Exit Button
         self.exit = self.findChild(QLabel, "label_7")
         self.exit.mousePressEvent = self.exitEvent
+
+        # Prev Month Button
+        self.prev_month = self.findChild(QToolButton, "qt_calendar_prevmonth")
+        self.prev_month.setIcon(QIcon("./images/prev_icon.png"))
+
+        # Next Month Button
+        self.next_month = self.findChild(QToolButton, "qt_calendar_nextmonth")
+        self.next_month.setIcon(QIcon("./images/next_icon.png"))
 
     def chooseDate(self, date):
         # Select date and navigate to notes page

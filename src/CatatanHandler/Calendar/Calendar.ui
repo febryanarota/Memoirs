@@ -283,7 +283,7 @@
 	font-weight: bold;
 }
 #qt_calendar_nextmonth{
-  <!-- border:none; -->
+  
   min-width:20px;
   max-width:20px;
   min-height:20px;
@@ -294,7 +294,7 @@
   padding:5px;
 }
 #qt_calendar_prevmonth::hover{
-  qproperty-icon:url("../prev_icon.png");
+  qproperty-icon:url(&quot;../prev_icon.png&quot;);
   min-width:10px;
   max-width:10px;
   min-height:10px;
@@ -307,13 +307,15 @@
 	font-size: 24px;
 	padding: 5px 10px;
 	font-weight: bold;
-}</string>
+}
+
+QCalendarWidget QToolButton#qt_calendar_nextmonth::right-arrow {icon: url(./images/next_icon.png);}</string>
       </property>
       <property name="selectedDate">
        <date>
         <year>2023</year>
         <month>4</month>
-        <day>5</day>
+        <day>12</day>
        </date>
       </property>
       <property name="minimumDate">
@@ -346,7 +348,7 @@
  <resources>
   <include location="../../../../../../../../Downloads/tes.qrc"/>
   <include location="../../../../../../../../Downloads/tes.qrc"/>
-  <include location="../../../../../../../../AppData/Downloads/tes.qrc"/>
+  <include location="../../../../../../../../Downloads/tes.qrc"/>
  </resources>
  <connections/>
 </ui>
