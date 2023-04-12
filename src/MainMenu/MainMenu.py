@@ -20,6 +20,9 @@ class MainMenu(QMainWindow):
 
         todolist_menu = self.findChild(QLabel, "label_16")
         todolist_menu.mousePressEvent = self.navigateToDoList
+        
+        harian_sidebar = self.findChild(QLabel, "label_5")
+        harian_sidebar.mousePressEvent = self.navigateHarian
 
         harian_image = self.findChild(QLabel, "label_12")
         harian_image.mousePressEvent = self.navigateHarian

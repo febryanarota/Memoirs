@@ -122,7 +122,7 @@ class ArtikelDetailDisplay(QMainWindow):
     def showArtikelDisplay(self):
         self.parent.stackedWidget.setCurrentIndex(3)
 
-    def back(self):
+    def back(self, event):
         self.parent.stackedWidget.setCurrentIndex(2)
 
     def navigateArticle(self, event):
