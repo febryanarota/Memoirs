@@ -74,7 +74,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="tes.qrc">:/newPrefix/Items.png</pixmap>
+          <pixmap resource="../../../../../../../../../Downloads/tes.qrc">:/newPrefix/Items.png</pixmap>
          </property>
         </widget>
         <widget class="QLabel" name="label">
@@ -179,7 +179,7 @@
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="tes.qrc">
+         <iconset resource="../../../../../../../../../Downloads/tes.qrc">
           <normaloff>:/newPrefix/Back.png</normaloff>:/newPrefix/Back.png</iconset>
         </property>
         <property name="iconSize">
@@ -213,7 +213,7 @@
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">margin-top: 40px; color : #2F2F2F;</string>
+         <string notr="true">margin-top: 40px; color : #2F2F2F; margin-bottom: 30px</string>
         </property>
         <property name="text">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Articles&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -237,7 +237,7 @@
            <x>0</x>
            <y>0</y>
            <width>1271</width>
-           <height>710</height>
+           <height>680</height>
           </rect>
          </property>
         </widget>
@@ -249,8 +249,9 @@
   </widget>
  </widget>
  <resources>
+  <include location="../../../../../../../../../Downloads/tes.qrc"/>
+  <include location="../../../../../../../../../Downloads/tes.qrc"/>
   <include location="tes.qrc"/>
-  <include location="../AppData/Downloads/tes.qrc"/>
  </resources>
  <connections/>
 </ui>

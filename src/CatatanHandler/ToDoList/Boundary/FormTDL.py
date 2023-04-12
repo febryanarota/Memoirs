@@ -2,6 +2,7 @@
 from PyQt5.QtWidgets import QTextEdit, QApplication, QMainWindow, QLabel, QScrollArea, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy, QLineEdit
 from PyQt5 import uic
 from PyQt5.QtGui import QFont, QPixmap
+from PyQt5.QtCore import QDate
 from functools import partial
 from CatatanHandler.ToDoList.Controller.TDLController import *
 from CatatanHandler.ToDoList.Boundary.TDLDisplay import *
@@ -18,6 +19,26 @@ class FormTDL(QMainWindow):
 
     def showFormTDL(self):
         uic.loadUi("./src/CatatanHandler/ToDoList/Boundary/FORMTDL.ui", self)
+
+        # Sidebar
+        self.main_menu = self.findChild(QLabel, "label_2")
+        self.main_menu.mousePressEvent = self.back
+
+        todolist_sidebar = self.findChild(QLabel, "label")
+        todolist_sidebar.mousePressEvent = self.navigateToDoList
+
+        harian_sidebar = self.findChild(QLabel, "label_5")
+        harian_sidebar.mousePressEvent = self.navigateHarian
+
+        target_sidebar = self.findChild(QLabel, "label_4")
+        target_sidebar.mousePressEvent = self.navigateTarget
+
+        syukur_sidebar = self.findChild(QLabel, "label_8")
+        syukur_sidebar.mousePressEvent = self.navigateSyukur
+
+        article_sidebar = self.findChild(QLabel, "label_6")
+        article_sidebar.mousePressEvent = self.navigateArticle
+
         self.inputbox = self.findChild(QLineEdit, "lineEdit")
         self.inputbox.setPlaceholderText("insert your task here...")
 
@@ -62,5 +83,21 @@ class FormTDL(QMainWindow):
     def back(self, event):
         self.parent.stackedWidget.setCurrentIndex(5)
     
+    def navigateArticle(self, event):
+        self.parent.stackedWidget.setCurrentIndex(3)
+    
+    def navigateToDoList(self, event):
+        self.parent.stackedWidget.setCurrentIndex(5)
+
+    def navigateSyukur(self, event):
+        self.parent.stackedWidget.setCurrentIndex(7)
+
+    def navigateTarget(self, event):
+        self.parent.stackedWidget.setCurrentIndex(9)
+
+    def navigateHarian(self, event):
+        self.parent.stackedWidget.widget(13).calendar.setSelectedDate(QDate())
+        self.parent.stackedWidget.setCurrentIndex(13)
+
     def exitEvent(self, event):
         QApplication.quit()

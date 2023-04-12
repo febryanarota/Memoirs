@@ -56,9 +56,10 @@ createToDoListTableQuery = QSqlQuery()
 createToDoListTableQuery.exec(
     """
     CREATE TABLE to_do_list(
-        to_do VARCHAR(105) PRIMARY KEY,
-        tanggal VARCHAR(100) PRIMARY KEY,
-        done INT default 0
+        to_do VARCHAR(105),
+        tanggal VARCHAR(100),
+        done INT default 0,
+        PRIMARY KEY(to_do, tanggal)
     )
     """
 )

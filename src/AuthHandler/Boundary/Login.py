@@ -1,6 +1,6 @@
 # Import libraries
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QVBoxLayout, QWidget, QSizePolicy, QSpacerItem
+from PyQt5.QtWidgets import QVBoxLayout, QWidget, QSizePolicy, QSpacerItem, QGraphicsDropShadowEffect
 from PyQt5.QtWidgets import QMainWindow, QPushButton, QLabel, QLineEdit
 from PyQt5.QtGui import QFont
 from AuthHandler.Controller.AuthController import AuthController
@@ -27,7 +27,6 @@ class Login(QMainWindow):
         self.label2.setFont(QFont("Poppins", 25, QFont.Bold))
         self.label2.setStyleSheet("margin: 5px 0px 0px 0px; letter-spacing: 2px; color: #2F2F2F")
 
-
         # Create input box for passcode
         self.passcode = ""
         self.input = QLineEdit(self)
@@ -47,6 +46,10 @@ class Login(QMainWindow):
         self.button.clicked.connect(self.login)
         self.button.setText("Login")
         self.button.setFont(QFont("Poppins", 15))
+        shadow = QGraphicsDropShadowEffect()
+        shadow.setBlurRadius(5)
+        shadow.setOffset(4,4)
+        self.button.setGraphicsEffect(shadow)
         self.button.setStyleSheet("margin: 40px auto 0px auto; padding : 10px 40px; border-radius: 10px; color: white; background-color: #00C2C3; font-weight: bold")
         self.button.setMaximumWidth(250)
 

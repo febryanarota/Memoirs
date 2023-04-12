@@ -2,5 +2,6 @@
   "python.linting.pylintArgs": [
     "--extension-pkg-whitelist=PyQt5",
     "--disable=C0301,E0401,C0114,C0115,C0103,C0116"
-  ]
+  ],
+  "python.linting.enabled": false
 }

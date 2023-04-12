@@ -2,7 +2,7 @@
 from PyQt5.QtWidgets import QWidget, QApplication, QMainWindow, QLabel, QScrollArea, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy, QSpacerItem, QGraphicsDropShadowEffect
 from PyQt5 import uic
 from PyQt5.QtGui import QFont, QPixmap, QIcon
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QDate
 # from CatatanHandler.ToDoList.Boundary.FormTDL import *
 from CatatanHandler.ToDoList.Entity.ToDoList import *
 from functools import partial
@@ -22,8 +22,25 @@ class TDLDisplay(QMainWindow):
     def showTDLDisplay(self, tanggal):
         # Set main window as parent
         uic.loadUi("./src/CatatanHandler/ToDoList/Boundary/TDLDisplay.ui", self)
+
+        # Sidebar
         self.main_menu = self.findChild(QLabel, "label_2")
         self.main_menu.mousePressEvent = self.back
+
+        todolist_sidebar = self.findChild(QLabel, "label")
+        todolist_sidebar.mousePressEvent = self.navigateToDoList
+
+        harian_sidebar = self.findChild(QLabel, "label_5")
+        harian_sidebar.mousePressEvent = self.navigateHarian
+
+        target_sidebar = self.findChild(QLabel, "label_4")
+        target_sidebar.mousePressEvent = self.navigateTarget
+
+        syukur_sidebar = self.findChild(QLabel, "label_8")
+        syukur_sidebar.mousePressEvent = self.navigateSyukur
+
+        article_sidebar = self.findChild(QLabel, "label_6")
+        article_sidebar.mousePressEvent = self.navigateArticle
 
         self.back_button = self.findChild(QPushButton, "pushButton")
         self.back_button.clicked.connect(self.back)
@@ -70,14 +87,30 @@ class TDLDisplay(QMainWindow):
         
         # Layout of Container Widget
         listTDL_box = QVBoxLayout()
-        listTDL_box.setSpacing(20)
+        listTDL_box.setSpacing(40)
     
         for i in range (len(listTodo)):
 
             TDL_widget = QWidget()
-            TDL_widget.setStyleSheet("background-color: white; border-radius: 20px; margin-right: 20px")
+            TDL_widget.setObjectName("Outer")
+            TDL_widget.setStyleSheet("""
+                #Outer {
+                    background-color: white; 
+                    border-radius: 20px;
+                }
+                QWidget {
+                    margin-right: 80px;
+                }
+                #delete {
+                    margin-right: 10px;
+                }
+                #checklist{
+                    margin-right: 0px;
+                }
+            """)
             TDL_widget.setMinimumSize(1150, 70)
-            TDL_widget.setMaximumSize(1150, 70)
+            TDL_widget.setMaximumHeight(70)
+            TDL_widget.setMaximumWidth(1920)
 
             shadow = QGraphicsDropShadowEffect()
             shadow.setBlurRadius(5)
@@ -91,6 +124,7 @@ class TDLDisplay(QMainWindow):
             TDL_box.addItem(spacer)
 
             check_icon = QPushButton()
+            check_icon.setObjectName("checklist")
             img = QPixmap("./images/checkBox.png")
             if listTodo[i].getDone() == 1:
                 img = QPixmap("./images/checked.png")
@@ -99,8 +133,8 @@ class TDLDisplay(QMainWindow):
             check_icon.setIconSize(image.size())
             check_icon.setStyleSheet('''QPushButton::hover{
                 background-color: rgba(202, 202, 202, 0.5);
-                width: 20px;
-                height: 30px;
+                height: 40px;
+                width: 30px;
                 border-radius: 10px;
             }''')
             check_icon.mousePressEvent = partial(self.checkTDL, todo = listTodo[i])
@@ -139,6 +173,8 @@ class TDLDisplay(QMainWindow):
 
         self.widget.setLayout(listTDL_box)
         self.scrollArea.setWidget(self.widget)
+        spacer3 = QSpacerItem(0, 0, QSizePolicy.Expanding, QSizePolicy.Expanding)
+        listTDL_box.addItem(spacer3)
 
     def get_done_status(todo_item):
         return todo_item.getDone()      
@@ -188,5 +224,21 @@ class TDLDisplay(QMainWindow):
     def back(self, event):
         self.parent.stackedWidget.setCurrentIndex(2)
         
+    def navigateArticle(self, event):
+        self.parent.stackedWidget.setCurrentIndex(3)
+    
+    def navigateToDoList(self, event):
+        self.parent.stackedWidget.setCurrentIndex(5)
+
+    def navigateSyukur(self, event):
+        self.parent.stackedWidget.setCurrentIndex(7)
+
+    def navigateTarget(self, event):
+        self.parent.stackedWidget.setCurrentIndex(9)
+
+    def navigateHarian(self, event):
+        self.parent.stackedWidget.widget(13).calendar.setSelectedDate(QDate())
+        self.parent.stackedWidget.setCurrentIndex(13)
+
     def exitEvent(self, event):
         QApplication.quit()

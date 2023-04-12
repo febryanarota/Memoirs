@@ -1,5 +1,5 @@
 # Import libraries
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QFrame, QGraphicsDropShadowEffect
 from PyQt5.QtCore import QDate
 from PyQt5 import uic
 from MainMenu.MainMenuImages import *
@@ -17,9 +17,9 @@ class MainMenu(QMainWindow):
 
         todolist_image = self.findChild(QLabel, "label_11")
         todolist_image.mousePressEvent = self.navigateToDoList
-        
-        harian_sidebar = self.findChild(QLabel, "label_5")
-        harian_sidebar.mousePressEvent = self.navigateHarian
+
+        todolist_menu = self.findChild(QLabel, "label_16")
+        todolist_menu.mousePressEvent = self.navigateToDoList
 
         harian_image = self.findChild(QLabel, "label_12")
         harian_image.mousePressEvent = self.navigateHarian
@@ -57,7 +57,12 @@ class MainMenu(QMainWindow):
         self.exit = self.findChild(QLabel, "label_7")
         self.exit.mousePressEvent = self.exitEvent
 
-    
+        self.frame2 = self.findChild(QFrame, "frame_2")
+        shadow = QGraphicsDropShadowEffect()
+        shadow.setBlurRadius(5)
+        shadow.setOffset(4,4)
+        self.frame2.setGraphicsEffect(shadow)
+
     def navigateArticle(self, event):
         self.parent.stackedWidget.setCurrentIndex(3)
     

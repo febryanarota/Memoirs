@@ -1,8 +1,8 @@
 # Import libraries
-from PyQt5.QtWidgets import QWidget, QApplication, QMainWindow, QLabel, QScrollArea, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy
+from PyQt5.QtWidgets import QWidget, QApplication, QMainWindow, QLabel, QScrollArea, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy, QGraphicsDropShadowEffect, QSpacerItem
 from PyQt5 import uic
 from PyQt5.QtGui import QFont, QPixmap
-from PyQt5.QtCore import Qt, QTime
+from PyQt5.QtCore import Qt, QTime, QDate
 from functools import partial
 from CatatanHandler.CatatanHarian.Boundary.HarianImages import *
 from CatatanHandler.CatatanHarian.Controller.HarianController import *
@@ -21,6 +21,25 @@ class HarianDisplay(QMainWindow):
     def showHarianDisplay(self):
         # Set main window as parent
         uic.loadUi("./src/CatatanHandler/CatatanHarian/Boundary/HarianDisplay.ui", self)
+
+        # Sidebar
+        self.main_menu = self.findChild(QLabel, "label_2")
+        self.main_menu.mousePressEvent = self.back
+
+        todolist_sidebar = self.findChild(QLabel, "label")
+        todolist_sidebar.mousePressEvent = self.navigateToDoList
+
+        harian_sidebar = self.findChild(QLabel, "label_5")
+        harian_sidebar.mousePressEvent = self.navigateHarian
+
+        target_sidebar = self.findChild(QLabel, "label_4")
+        target_sidebar.mousePressEvent = self.navigateTarget
+
+        syukur_sidebar = self.findChild(QLabel, "label_8")
+        syukur_sidebar.mousePressEvent = self.navigateSyukur
+
+        article_sidebar = self.findChild(QLabel, "label_6")
+        article_sidebar.mousePressEvent = self.navigateArticle
 
         # Navigation Buttons
         self.main_menu = self.findChild(QLabel, "label_2")
@@ -69,7 +88,8 @@ class HarianDisplay(QMainWindow):
 
         # Fetch All Harian within Date
         ListAllHarian = HarianController().showHarian(datetime.now().strftime("%d/%m/%Y") if (self.parent.date == "") else self.parent.date)
-        
+        ListAllHarian.sort(key=lambda x: x.jam_mulai + "-" + x.jam_berakhir, reverse=False)
+
         # Container Widget       
         self.widget = QWidget()
         
@@ -83,7 +103,6 @@ class HarianDisplay(QMainWindow):
             harian_widget.setObjectName("Outer")
             harian_widget.setStyleSheet("""
                 #Outer {
-                    border: 1px solid; 
                     background-color: white; 
                     border-radius: 20px;
                 }
@@ -99,6 +118,14 @@ class HarianDisplay(QMainWindow):
             """
             )
             harian_widget.setContentsMargins(0,0,0,0)
+            harian_widget.setMinimumSize(1150, 70)
+            harian_widget.setMaximumHeight(70)
+            harian_widget.setMaximumWidth(1920)
+
+            shadow = QGraphicsDropShadowEffect()
+            shadow.setBlurRadius(5)
+            shadow.setOffset(4,4)
+            harian_widget.setGraphicsEffect(shadow)
             # Create Main Layout
             harian_box = QHBoxLayout()
 
@@ -108,13 +135,14 @@ class HarianDisplay(QMainWindow):
             
             # Setup date content
             date_harian = QLabel(ListAllHarian[i].getJamMulai() + " - " + ListAllHarian[i].getJamBerakhir())
-            date_harian.setFont(QFont("Poppins", 20))
+            date_harian.setFont(QFont("Poppins", 12))
             date_harian.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
             date_harian.setWordWrap(True)
 
             # Setup Delete Button
             label_image = QLabel()
             image = QPixmap("./images/delete_btn.png")
+            image = image.scaled(30, 30, Qt.KeepAspectRatio, Qt.FastTransformation)
             label_image.setPixmap(image)
             label_image.setObjectName("delete")
             label_image.mousePressEvent = partial(self.deleteHarian, harianDelete = ListAllHarian[i], tanggal = ListAllHarian[i].getTanggal())
@@ -122,6 +150,7 @@ class HarianDisplay(QMainWindow):
             # Setup Edit Button
             label_edit_image = QLabel()
             image_edit = QPixmap("./images/edit_btn.png")
+            image_edit = image_edit.scaled(30, 30, Qt.KeepAspectRatio, Qt.FastTransformation)
             label_edit_image.setPixmap(image_edit)
             label_edit_image.mousePressEvent = partial(self.editHarian, harian_lama = ListAllHarian[i], kegiatan_lama = ListAllHarian[i].getKegiatan(), tanggal = ListAllHarian[i].getTanggal(), jam_mulai_lama = ListAllHarian[i].getJamMulai(), jam_berakhir_lama = ListAllHarian[i].getJamBerakhir())
 
@@ -132,7 +161,7 @@ class HarianDisplay(QMainWindow):
 
             # Setup activity
             title = QLabel(ListAllHarian[i].getKegiatan())
-            title.setFont(QFont("Poppins", 20))
+            title.setFont(QFont("Poppins", 12))
 
             # Merging all widgets and layouts
             harian_content.addWidget(date_harian, alignment=Qt.AlignLeft)
@@ -160,6 +189,8 @@ class HarianDisplay(QMainWindow):
         self.widget.setLayout(list_harian_box)
         self.widget.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.scrollArea.setWidget(self.widget)
+        spacer = QSpacerItem(0, 0, QSizePolicy.Expanding, QSizePolicy.Expanding)
+        list_harian_box.addItem(spacer)
 
     def addHarian(self, event):
         # Turn off edit mode
@@ -216,3 +247,19 @@ class HarianDisplay(QMainWindow):
         
     def exitEvent(self, event):
         QApplication.quit()
+    
+    def navigateArticle(self, event):
+        self.parent.stackedWidget.setCurrentIndex(3)
+    
+    def navigateToDoList(self, event):
+        self.parent.stackedWidget.setCurrentIndex(5)
+
+    def navigateSyukur(self, event):
+        self.parent.stackedWidget.setCurrentIndex(7)
+
+    def navigateTarget(self, event):
+        self.parent.stackedWidget.setCurrentIndex(9)
+
+    def navigateHarian(self, event):
+        self.parent.stackedWidget.widget(13).calendar.setSelectedDate(QDate())
+        self.parent.stackedWidget.setCurrentIndex(13)

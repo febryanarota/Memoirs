@@ -1,13 +1,14 @@
 # Import libraries
-from PyQt5.QtWidgets import QWidget, QApplication, QMainWindow, QLabel, QScrollArea, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy
+from PyQt5.QtWidgets import QWidget, QApplication, QMainWindow, QLabel, QScrollArea, QVBoxLayout, QHBoxLayout, QPushButton, QGraphicsDropShadowEffect
 from PyQt5 import uic
 from PyQt5.QtGui import QFont, QPixmap
-from CatatanHandler.Artikel.Boundary.ArtikelDisplay import *
+from PyQt5.QtCore import QDate
 from CatatanHandler.Artikel.Boundary.ArtikelImages import *
 from functools import partial
 from CatatanHandler.Artikel.Controller.ArtikelController import *
+from datetime import datetime
 
-# Class Register
+# Class ArtikelDisplay
 class ArtikelDisplay(QMainWindow):
     # Constructor
     def __init__(self, Main):
@@ -18,6 +19,25 @@ class ArtikelDisplay(QMainWindow):
     def showArtikelDisplay(self):
         # Set main window as parent
         uic.loadUi("./src/CatatanHandler/Artikel/Boundary/ListArtikel.ui", self)
+
+        # Sidebar
+        self.main_menu = self.findChild(QLabel, "label_2")
+        self.main_menu.mousePressEvent = self.back
+
+        todolist_sidebar = self.findChild(QLabel, "label")
+        todolist_sidebar.mousePressEvent = self.navigateToDoList
+
+        harian_sidebar = self.findChild(QLabel, "label_5")
+        harian_sidebar.mousePressEvent = self.navigateHarian
+
+        target_sidebar = self.findChild(QLabel, "label_4")
+        target_sidebar.mousePressEvent = self.navigateTarget
+
+        syukur_sidebar = self.findChild(QLabel, "label_8")
+        syukur_sidebar.mousePressEvent = self.navigateSyukur
+
+        article_sidebar = self.findChild(QLabel, "label_6")
+        article_sidebar.mousePressEvent = self.navigateArticle
 
         self.main_menu = self.findChild(QLabel, "label_2")
         self.main_menu.mousePressEvent = self.back
@@ -50,6 +70,7 @@ class ArtikelDisplay(QMainWindow):
         self.title.setStyleSheet("margin: 40px 0;")
         articleController = ArtikelController()
         listOfArticle = articleController.showArtikel()
+        listOfArticle.sort(key=lambda x: datetime.strptime(x.tanggal, "%d/%m/%Y").date() if x.tanggal else 0, reverse=False)
 
         # Container Widget       
         self.widget = QWidget()
@@ -62,6 +83,10 @@ class ArtikelDisplay(QMainWindow):
             article_widget = QWidget()
             article_widget.setStyleSheet("background-color: white; border-radius: 20px; margin-right: 20px")
             article_widget.setContentsMargins(20,20,20,20)
+            shadow = QGraphicsDropShadowEffect()
+            shadow.setBlurRadius(5)
+            shadow.setOffset(4,4)
+            article_widget.setGraphicsEffect(shadow)
             # Create Main Layout
             article_box = QHBoxLayout()
 
@@ -114,3 +139,19 @@ class ArtikelDisplay(QMainWindow):
 
     def exitEvent(self, event):
         QApplication.quit()
+
+    def navigateArticle(self, event):
+        self.parent.stackedWidget.setCurrentIndex(3)
+    
+    def navigateToDoList(self, event):
+        self.parent.stackedWidget.setCurrentIndex(5)
+
+    def navigateSyukur(self, event):
+        self.parent.stackedWidget.setCurrentIndex(7)
+
+    def navigateTarget(self, event):
+        self.parent.stackedWidget.setCurrentIndex(9)
+
+    def navigateHarian(self, event):
+        self.parent.stackedWidget.widget(13).calendar.setSelectedDate(QDate())
+        self.parent.stackedWidget.setCurrentIndex(13)

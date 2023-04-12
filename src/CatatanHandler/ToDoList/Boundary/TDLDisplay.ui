@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1284</width>
-    <height>831</height>
+    <height>965</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -74,7 +74,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="todolist.qrc">:/newPrefix/navbar_home.png</pixmap>
+          <pixmap>:/newPrefix/navbar_home.png</pixmap>
          </property>
         </widget>
         <widget class="QLabel" name="label">
@@ -90,7 +90,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="todolist.qrc">:/newPrefix/nabar_toDoList.png</pixmap>
+          <pixmap>:/newPrefix/nabar_toDoList.png</pixmap>
          </property>
         </widget>
         <widget class="QLabel" name="label_5">
@@ -106,7 +106,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="todolist.qrc">:/newPrefix/navbar_dailyPlan.png</pixmap>
+          <pixmap>:/newPrefix/navbar_dailyPlan.png</pixmap>
          </property>
         </widget>
         <widget class="QLabel" name="label_4">
@@ -122,7 +122,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="todolist.qrc">:/newPrefix/navbar_target.png</pixmap>
+          <pixmap>:/newPrefix/navbar_target.png</pixmap>
          </property>
         </widget>
         <widget class="QLabel" name="label_8">
@@ -138,7 +138,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="todolist.qrc">:/newPrefix/navbar_gratitude.png</pixmap>
+          <pixmap>:/newPrefix/navbar_gratitude.png</pixmap>
          </property>
         </widget>
         <widget class="QLabel" name="label_6">
@@ -154,7 +154,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="todolist.qrc">:/newPrefix/navbar_article.png</pixmap>
+          <pixmap>:/newPrefix/navbar_article.png</pixmap>
          </property>
         </widget>
         <widget class="QLabel" name="label_7">
@@ -170,7 +170,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="todolist.qrc">:/newPrefix/navbar_exit.png</pixmap>
+          <pixmap>:/newPrefix/navbar_exit.png</pixmap>
          </property>
         </widget>
        </widget>
@@ -197,7 +197,7 @@
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="todolist.qrc">
+         <iconset>
           <normaloff>:/newPrefix/back_btn.png</normaloff>:/newPrefix/back_btn.png</iconset>
         </property>
         <property name="iconSize">
@@ -233,7 +233,7 @@
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">margin-top: 40px; color : #2F2F2F;</string>
+           <string notr="true">margin-top: 40px; color : #2F2F2F;margin-bottom: 30px</string>
           </property>
           <property name="text">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To Do List&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -287,6 +287,9 @@
                 <pointsize>11</pointsize>
                </font>
               </property>
+              <property name="styleSheet">
+               <string notr="true">margin-bottom: 30px</string>
+              </property>
               <property name="lineWidth">
                <number>1</number>
               </property>
@@ -305,6 +308,22 @@
              </widget>
             </item>
             <item>
+             <spacer name="horizontalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Minimum</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
              <widget class="QPushButton" name="pushButton_3">
               <property name="baseSize">
                <size>
@@ -315,17 +334,20 @@
               <property name="layoutDirection">
                <enum>Qt::LeftToRight</enum>
               </property>
+              <property name="styleSheet">
+               <string notr="true">margin-bottom: 30px</string>
+              </property>
               <property name="text">
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="todolist.qrc">
+               <iconset>
                 <normaloff>:/newPrefix/date_btn.png</normaloff>:/newPrefix/date_btn.png</iconset>
               </property>
               <property name="iconSize">
                <size>
-                <width>40</width>
-                <height>40</height>
+                <width>60</width>
+                <height>60</height>
                </size>
               </property>
               <property name="flat">
@@ -334,32 +356,12 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_2">
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="todolist.qrc">
-                <normaloff>:/newPrefix/add_btn.png</normaloff>:/newPrefix/add_btn.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>40</width>
-                <height>40</height>
-               </size>
-              </property>
-              <property name="flat">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_2">
+             <spacer name="horizontalSpacer_4">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
               <property name="sizeType">
-               <enum>QSizePolicy::Fixed</enum>
+               <enum>QSizePolicy::Minimum</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -368,6 +370,29 @@
                </size>
               </property>
              </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_2">
+              <property name="styleSheet">
+               <string notr="true">margin-right: 80px; margin-bottom: 30px</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>:/newPrefix/add_btn.png</normaloff>:/newPrefix/add_btn.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>60</width>
+                <height>60</height>
+               </size>
+              </property>
+              <property name="flat">
+               <bool>true</bool>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -391,7 +416,7 @@
          <x>0</x>
          <y>0</y>
          <width>1090</width>
-         <height>708</height>
+         <height>811</height>
         </rect>
        </property>
       </widget>
@@ -401,7 +426,8 @@
   </widget>
  </widget>
  <resources>
-  <include location="../../../../../../../../AppData/Downloads/tes.qrc"/>
+  <include location="../../../../../../../../../Downloads/tes.qrc"/>
+  <include location="../../../../../../../../../Downloads/tes.qrc"/>
   <include location="todolist.qrc"/>
  </resources>
  <connections/>

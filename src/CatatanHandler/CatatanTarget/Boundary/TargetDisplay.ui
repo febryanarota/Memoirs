@@ -215,7 +215,7 @@
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">margin-top: 40px; color : #2F2F2F;</string>
+           <string notr="true">margin-top: 40px; color : #2F2F2F; margin-bottom: 30px</string>
           </property>
           <property name="text">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Targets&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -240,6 +240,9 @@
         </item>
         <item alignment="Qt::AlignBottom">
          <widget class="QPushButton" name="pushButton_2">
+          <property name="styleSheet">
+           <string notr="true">margin-bottom: 30px</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -273,7 +276,7 @@
          <x>0</x>
          <y>0</y>
          <width>1271</width>
-         <height>706</height>
+         <height>676</height>
         </rect>
        </property>
       </widget>
@@ -284,7 +287,7 @@
  </widget>
  <resources>
   <include location="../../../../../../../../../Downloads/tes.qrc"/>
-  <include location="tes.qrc"/>
+  <include location="../../../../../../../../../Downloads/tes.qrc"/>
  </resources>
  <connections/>
 </ui>

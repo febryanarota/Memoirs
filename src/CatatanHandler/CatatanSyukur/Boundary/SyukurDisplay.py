@@ -1,8 +1,8 @@
 # Import libraries
-from PyQt5.QtWidgets import QWidget, QApplication, QMainWindow, QLabel, QScrollArea, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy
+from PyQt5.QtWidgets import QWidget, QApplication, QMainWindow, QLabel, QScrollArea, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy, QGraphicsDropShadowEffect, QSpacerItem
 from PyQt5 import uic
 from PyQt5.QtGui import QFont, QPixmap
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QDate
 from functools import partial
 from CatatanHandler.CatatanSyukur.Boundary.SyukurImages import *
 from CatatanHandler.CatatanSyukur.Controller.SyukurController import *
@@ -20,8 +20,25 @@ class SyukurDisplay(QMainWindow):
     def showSyukurDisplay(self):
         # Set main window as parent
         uic.loadUi("./src/CatatanHandler/CatatanSyukur/Boundary/SyukurDisplay.ui", self)
+        
+        # Sidebar
         self.main_menu = self.findChild(QLabel, "label_2")
         self.main_menu.mousePressEvent = self.back
+
+        todolist_sidebar = self.findChild(QLabel, "label")
+        todolist_sidebar.mousePressEvent = self.navigateToDoList
+
+        harian_sidebar = self.findChild(QLabel, "label_5")
+        harian_sidebar.mousePressEvent = self.navigateHarian
+
+        target_sidebar = self.findChild(QLabel, "label_4")
+        target_sidebar.mousePressEvent = self.navigateTarget
+
+        syukur_sidebar = self.findChild(QLabel, "label_8")
+        syukur_sidebar.mousePressEvent = self.navigateSyukur
+
+        article_sidebar = self.findChild(QLabel, "label_6")
+        article_sidebar.mousePressEvent = self.navigateArticle
 
         self.back_button = self.findChild(QPushButton, "pushButton")
         self.back_button.clicked.connect(self.back)
@@ -30,7 +47,7 @@ class SyukurDisplay(QMainWindow):
         self.exit.mousePressEvent = self.exitEvent
 
         self.add_button = self.findChild(QPushButton, "pushButton_2")
-        self.add_button.setStyleSheet("margin-right: 80px")
+        self.add_button.setStyleSheet("margin-right: 80px; margin-bottom: 30px;")
         self.add_button.clicked.connect(self.addSyukur)
 
         self.scrollArea = self.findChild(QScrollArea, "scrollArea")
@@ -54,7 +71,8 @@ class SyukurDisplay(QMainWindow):
         """)
 
         ListAllSyukur = SyukurController().showSyukur()
-        
+        ListAllSyukur.sort(key=lambda x: datetime.strptime(x.tanggal, "%d/%m/%Y").date(), reverse=True)
+
         # Container Widget       
         self.widget = QWidget()
         
@@ -67,7 +85,6 @@ class SyukurDisplay(QMainWindow):
             syukur_widget.setObjectName("Outer")
             syukur_widget.setStyleSheet("""
                 #Outer {
-                    border: 1px solid; 
                     background-color: white; 
                     border-radius: 20px;
                 }
@@ -83,6 +100,15 @@ class SyukurDisplay(QMainWindow):
             """
             )
             syukur_widget.setContentsMargins(0,0,0,0)
+            syukur_widget.setMinimumSize(1150, 70)
+            syukur_widget.setMaximumHeight(70)
+            syukur_widget.setMaximumWidth(1920)
+
+            shadow = QGraphicsDropShadowEffect()
+            shadow.setBlurRadius(5)
+            shadow.setOffset(4,4)
+            syukur_widget.setGraphicsEffect(shadow)
+
             # Create Main Layout
             syukur_box = QHBoxLayout()
 
@@ -91,18 +117,20 @@ class SyukurDisplay(QMainWindow):
             syukur_content = QHBoxLayout()
             
             date_syukur = QLabel(ListAllSyukur[i].getTanggal())
-            date_syukur.setFont(QFont("Poppins", 20))
+            date_syukur.setFont(QFont("Poppins", 12))
             date_syukur.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
             date_syukur.setWordWrap(True)
 
             label_image = QLabel()
             image = QPixmap("./images/delete_btn.png")
+            image = image.scaled(30, 30, Qt.KeepAspectRatio, Qt.FastTransformation)
             label_image.setPixmap(image)
             label_image.setObjectName("delete")
             label_image.mousePressEvent = partial(self.deleteSyukur, syukurDelete = ListAllSyukur[i].getSyukur(), tanggalDelete = ListAllSyukur[i].getTanggal())
 
             label_edit_image = QLabel()
             image_edit = QPixmap("./images/edit_btn.png")
+            image_edit = image_edit.scaled(30, 30, Qt.KeepAspectRatio, Qt.FastTransformation)
             label_edit_image.setPixmap(image_edit)
             label_edit_image.mousePressEvent = partial(self.editSyukur, syukurLama = ListAllSyukur[i].getSyukur(), tanggal = ListAllSyukur[i].getTanggal())
 
@@ -111,7 +139,7 @@ class SyukurDisplay(QMainWindow):
             batas.setStyleSheet("margin-left: 10px; margin-right: 10px")
 
             title = QLabel(ListAllSyukur[i].getSyukur()[:35] + '..' if (len(ListAllSyukur[i].getSyukur()) > 35) else ListAllSyukur[i].getSyukur())
-            title.setFont(QFont("Poppins", 20))
+            title.setFont(QFont("Poppins", 12))
             title.mousePressEvent = partial(self.showSyukurDetailDisplay, syukur = ListAllSyukur[i])
 
             syukur_content.addWidget(date_syukur, alignment=Qt.AlignLeft)
@@ -138,6 +166,8 @@ class SyukurDisplay(QMainWindow):
         self.widget.setLayout(list_syukur_box)
         self.widget.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.scrollArea.setWidget(self.widget)
+        spacer = QSpacerItem(0, 0, QSizePolicy.Expanding, QSizePolicy.Expanding)
+        list_syukur_box.addItem(spacer)
 
     def showSyukurDetailDisplay(self, event, syukur):
         self.parent.stackedWidget.widget(8).text_edit.setText(syukur.getSyukur())
@@ -182,3 +212,19 @@ class SyukurDisplay(QMainWindow):
         
     def exitEvent(self, event):
         QApplication.quit()
+    
+    def navigateArticle(self, event):
+        self.parent.stackedWidget.setCurrentIndex(3)
+    
+    def navigateToDoList(self, event):
+        self.parent.stackedWidget.setCurrentIndex(5)
+
+    def navigateSyukur(self, event):
+        self.parent.stackedWidget.setCurrentIndex(7)
+
+    def navigateTarget(self, event):
+        self.parent.stackedWidget.setCurrentIndex(9)
+
+    def navigateHarian(self, event):
+        self.parent.stackedWidget.widget(13).calendar.setSelectedDate(QDate())
+        self.parent.stackedWidget.setCurrentIndex(13)
