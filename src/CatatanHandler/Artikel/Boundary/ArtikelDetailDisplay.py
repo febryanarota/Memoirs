@@ -1,5 +1,5 @@
 # Import libraries
-from PyQt5.QtWidgets import QWidget, QApplication, QMainWindow, QLabel, QScrollArea, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy, QGraphicsDropShadowEffect
+from PyQt5.QtWidgets import QWidget, QApplication, QMainWindow, QLabel, QScrollArea, QVBoxLayout, QPushButton, QSizePolicy, QGraphicsDropShadowEffect
 from PyQt5 import uic, QtCore
 from PyQt5.QtGui import QFont, QPixmap
 from PyQt5.QtCore import QDate
@@ -16,7 +16,7 @@ class ArtikelDetailDisplay(QMainWindow):
         # Set main window as parent
         uic.loadUi("./src/CatatanHandler/Artikel/Boundary/ListArtikel.ui", self)
 
-        # Sidebar
+        # Sidebar and other buttons
         self.main_menu = self.findChild(QLabel, "label_2")
         self.main_menu.mousePressEvent = self.back
 
@@ -44,7 +44,10 @@ class ArtikelDetailDisplay(QMainWindow):
         self.exit = self.findChild(QLabel, "label_7")
         self.exit.mousePressEvent = self.exitEvent
 
+        # Scroll Area
         self.scrollArea = self.findChild(QScrollArea, "scrollArea")
+
+        # Styling scroll area
         self.scrollArea.verticalScrollBar().setStyleSheet(
         """
         QScrollBar:vertical {
@@ -62,8 +65,10 @@ class ArtikelDetailDisplay(QMainWindow):
             width: 5px;
         }
         """)
+
+        # Styling Title
         self.title = self.findChild(QLabel, "label_9")
-        self.title.setStyleSheet("margin: 40px 0;")
+        self.title.setStyleSheet("margin: 40px 0; margin-bottom: 0px")
 
         # Container Widget
         self.widget = QWidget()
@@ -91,13 +96,12 @@ class ArtikelDetailDisplay(QMainWindow):
         article_widget.setSizePolicy(sp2)
 
         # Create Main Layout
-        article_box = QHBoxLayout()
+        article_box = QVBoxLayout()
 
         # Create First Content
-        label_image = QLabel()
+        self.label_image = QLabel()
         image = QPixmap("./src/CatatanHandler/Artikel/Boundary/DummyArtikel.png")
-        label_image.setPixmap(image)
-        label_image.setMaximumWidth(200)
+        self.label_image.setPixmap(image)
 
         # Create Second Content
         self.content = QLabel()
@@ -106,7 +110,7 @@ class ArtikelDetailDisplay(QMainWindow):
         self.content.setWordWrap(True)
 
         # Merge contents
-        article_box.addWidget(label_image, alignment = QtCore.Qt.AlignTop)
+        article_box.addWidget(self.label_image, alignment = QtCore.Qt.AlignCenter)
         article_box.addWidget(self.content, alignment = QtCore.Qt.AlignTop)
 
         # Set Main Layout
@@ -120,26 +124,34 @@ class ArtikelDetailDisplay(QMainWindow):
         self.scrollArea.setWidget(self.widget)
 
     def showArtikelDisplay(self):
+        # Navigate to page artikel
         self.parent.stackedWidget.setCurrentIndex(3)
 
     def back(self, event):
+        # Go back to main menu
         self.parent.stackedWidget.setCurrentIndex(2)
 
     def navigateArticle(self, event):
+        # Navigate to page article
         self.parent.stackedWidget.setCurrentIndex(3)
-    
+
     def navigateToDoList(self, event):
+        # Navigate to page calendar to do list
         self.parent.stackedWidget.setCurrentIndex(5)
 
     def navigateSyukur(self, event):
+        # Navigate to page syukur
         self.parent.stackedWidget.setCurrentIndex(7)
 
     def navigateTarget(self, event):
+        # Navigate to page target
         self.parent.stackedWidget.setCurrentIndex(9)
 
     def navigateHarian(self, event):
+        # Navigate to page calendar harian
         self.parent.stackedWidget.widget(13).calendar.setSelectedDate(QDate())
         self.parent.stackedWidget.setCurrentIndex(13)
 
     def exitEvent(self):
+        # Exit application
         QApplication.quit()

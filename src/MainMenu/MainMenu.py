@@ -8,10 +8,14 @@ class MainMenu(QMainWindow):
     # Constructor
     def __init__(self, Main):
         super().__init__()
-        
+
+        # Set parent with main
         self.parent = Main
+        
+        # Load UI
         uic.loadUi("./src/MainMenu/MainMenu.ui", self)
 
+        # Bind sidebar labels, images, and text labels with navigations
         todolist_sidebar = self.findChild(QLabel, "label")
         todolist_sidebar.mousePressEvent = self.navigateToDoList
 
@@ -20,7 +24,7 @@ class MainMenu(QMainWindow):
 
         todolist_menu = self.findChild(QLabel, "label_16")
         todolist_menu.mousePressEvent = self.navigateToDoList
-        
+
         harian_sidebar = self.findChild(QLabel, "label_5")
         harian_sidebar.mousePressEvent = self.navigateHarian
 
@@ -50,7 +54,7 @@ class MainMenu(QMainWindow):
 
         article_sidebar = self.findChild(QLabel, "label_6")
         article_sidebar.mousePressEvent = self.navigateArticle
-        
+
         article_image = self.findChild(QLabel, "label_15")
         article_image.mousePressEvent = self.navigateArticle
 
@@ -60,6 +64,7 @@ class MainMenu(QMainWindow):
         self.exit = self.findChild(QLabel, "label_7")
         self.exit.mousePressEvent = self.exitEvent
 
+        # Styling frame with drop shadow effect
         self.frame2 = self.findChild(QFrame, "frame_2")
         shadow = QGraphicsDropShadowEffect()
         shadow.setBlurRadius(5)
@@ -67,20 +72,26 @@ class MainMenu(QMainWindow):
         self.frame2.setGraphicsEffect(shadow)
 
     def navigateArticle(self, event):
+        # Navigate to page article
         self.parent.stackedWidget.setCurrentIndex(3)
-    
+
     def navigateToDoList(self, event):
+        # Navigate to page calendar to do list
         self.parent.stackedWidget.setCurrentIndex(5)
 
     def navigateSyukur(self, event):
+        # Navigate to page syukur
         self.parent.stackedWidget.setCurrentIndex(7)
 
     def navigateTarget(self, event):
+        # Navigate to page target
         self.parent.stackedWidget.setCurrentIndex(9)
 
     def navigateHarian(self, event):
+        # Navigate to page calendar harian
         self.parent.stackedWidget.widget(13).calendar.setSelectedDate(QDate())
         self.parent.stackedWidget.setCurrentIndex(13)
 
     def exitEvent(self, event):
+        # Exit Application
         QApplication.quit()

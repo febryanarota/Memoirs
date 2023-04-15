@@ -7,12 +7,19 @@ from datetime import datetime
 class ConfirmPopUp(QDialog):
     def __init__(self, title = ""):
         super().__init__()
+
+        # Set Title Atrribute
         self.title = title
+
+        # Show Popup
         self.showConfirmPopUp()
+
+        # Resize and set window title
         self.resize(400, 250)
         self.setWindowTitle("Confirm Delete")
 
     def showConfirmPopUp(self):
+        # Load UI
         uic.loadUi("./src/CatatanHandler/ConfirmPopUp/ConfirmDialog.ui", self)
 
         # Cancel Button

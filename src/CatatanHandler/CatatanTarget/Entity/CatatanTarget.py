@@ -4,13 +4,13 @@ class CatatanTarget():
     def __init__(self, target = "", tanggal = ""):
         self.target = target
         self.tanggal = tanggal
-    
+
     def getTarget(self):
         return (self.target)
-    
+
     def getTanggal(self):
         return (self.tanggal)
-    
+
     def getAllTarget(self):
         # Method to execute query select all target
         query = QSqlQuery()
@@ -36,7 +36,7 @@ class CatatanTarget():
         # Execute query to retrieve the updated to do list
         newListOfTarget = self.getAllTarget()
         return newListOfTarget
-    
+
     def edit(self, prev_target):
         # Method to execute query update to do list
         query = QSqlQuery()
@@ -48,11 +48,11 @@ class CatatanTarget():
         query.addBindValue(prev_target.target)
         query.addBindValue(prev_target.tanggal)
         query.exec()
-        
+
         # Execute query to retrieve the updated to do list
         newListOfTarget = self.getAllTarget()
         return (newListOfTarget)
-        
+
     def delete(self):
         # Method to execute query delete to do list
         query = QSqlQuery()

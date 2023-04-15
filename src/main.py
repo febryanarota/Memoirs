@@ -4,6 +4,7 @@ from datetime import date
 from PyQt5.QtWidgets import QApplication, QMainWindow, QStackedWidget
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
 from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import QFile, QIODevice
 from AuthHandler.Boundary.Login import Login
 from AuthHandler.Boundary.Register import Register
 from MainMenu.MainMenu import MainMenu
@@ -45,9 +46,8 @@ createArticleTableQuery.exec(
     """
     CREATE TABLE article(
         title VARCHAR(100) PRIMARY KEY,
-        tanggal VARCHAR(100),
         content VARCHAR(5000) NOT NULL,
-        image VARCHAR(100)
+        image BLOB NOT NULL
     )
     """
 )
@@ -153,36 +153,63 @@ class MainWindow(QMainWindow):
         else:
             self.stackedWidget.setCurrentIndex(1)
 
+    def convertToBinaryData(self, filename):
+        # Convert digital data to binary format
+        file = QFile(filename)
+        if not file.open(QIODevice.ReadOnly):
+            print("Failed to open image file")
+            exit(1)
+        image_data = file.readAll()
+        return image_data
+
     def initializeDataArticle(self):
-        with open("./dataseed/dataArtikel.txt", 'r', encoding='utf-8') as f:
+        # Initialize article data
+        # Open Txt File
+        with open("./src/DataSeed/DataArtikel.txt", 'r', encoding='utf-8') as f:
+            # Read all lines
             lines = f.readlines()
 
+            # Initialize variables
+            count = 0
             readTitle = True
             title = ""
-            tanggal = ""
             content = ""
-            image = ""
+
+            # Iterate all lines
             for line in lines:
+                # If read title, get title
                 if readTitle:
                     title = line
                     readTitle = False
                 elif line == "\n":
+                    # If read paragraphs ends
+
+                    # Restart variable and increment counter
                     readTitle = True
+                    count += 1
+
+                    # Prepare Query
                     query = QSqlQuery()
                     query.prepare(
                     """
-                    INSERT INTO article VALUES (?, ?, ?, ?)
+                    INSERT INTO article VALUES (?, ?, ?)
                     """
                     )
+
+                    # Cut content
                     content = content[:len(content) - 1]
+
+                    # Bind values with query
                     query.addBindValue(title)
-                    query.addBindValue(tanggal)
                     query.addBindValue(content)
-                    query.addBindValue(image)
+                    query.addBindValue(self.convertToBinaryData("./src/DataSeed/images/img" + str(count) + ".jpg"))
                     query.exec()
+
+                    # Restart variables
                     title = ""
                     content = ""
                 else:
+                    # Merge paragraphs
                     content += "        " + line + "\n"
 
 # Run Application

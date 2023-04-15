@@ -86,25 +86,32 @@ class CalendarToDo(QMainWindow):
         self.parent.stackedWidget.insertWidget(5, TDLDisplay(self.parent, choosen_date))
         self.parent.stackedWidget.setCurrentIndex(5)
         self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(6))
-    
+
     def back(self, event):
+        # Go back to main menu
         self.parent.stackedWidget.setCurrentIndex(2)
 
     def navigateArticle(self, event):
+        # Navigate to page article
         self.parent.stackedWidget.setCurrentIndex(3)
-    
+
     def navigateToDoList(self, event):
+        # Navigate to page calendar to do list
         self.parent.stackedWidget.setCurrentIndex(5)
 
     def navigateSyukur(self, event):
+        # Navigate to page syukur
         self.parent.stackedWidget.setCurrentIndex(7)
 
     def navigateTarget(self, event):
+        # Navigate to page target
         self.parent.stackedWidget.setCurrentIndex(9)
 
     def navigateHarian(self, event):
+        # Navigate to page calendar harian
         self.parent.stackedWidget.widget(13).calendar.setSelectedDate(QDate())
         self.parent.stackedWidget.setCurrentIndex(13)
 
     def exitEvent(self, event):
+        # Exit application
         QApplication.quit()

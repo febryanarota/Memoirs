@@ -8,10 +8,10 @@ class ToDoList():
 
     def getToDo(self):
         return self.to_do
-    
+
     def getDone(self):
         return self.done
-    
+
     def getTanggal(self):
         return self.tanggal
 
@@ -28,7 +28,7 @@ class ToDoList():
         while query.next():
             listOfTDL.append(ToDoList(query.value(0), query.value(1), query.value(2)))
 
-        
+
         return listOfTDL
 
     def save(self):
@@ -46,7 +46,7 @@ class ToDoList():
         newListOfTDL = self.getTDL(self.tanggal)
 
         return newListOfTDL
-    
+
     def edit(self, to_do_lama):
         # Method to execute query update to do list
 
@@ -66,7 +66,7 @@ class ToDoList():
         newListOfTDL = self.getTDL(self.tanggal)
 
         return newListOfTDL
-        
+
     def delete(self):
         # Method to execute query delete to do list
 
@@ -76,7 +76,7 @@ class ToDoList():
         query.addBindValue(self.to_do)
         query.addBindValue(self.tanggal)
         query.exec()
-        
+
         # Execute query to retrieve the updated to do list
         newListOfTDL = self.getTDL(self.tanggal)
 

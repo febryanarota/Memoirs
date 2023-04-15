@@ -5,24 +5,30 @@ from PyQt5.QtGui import QFont, QPixmap
 from PyQt5.QtCore import Qt, QTime, QDate
 from functools import partial
 from CatatanHandler.CatatanHarian.Boundary.HarianImages import *
-from CatatanHandler.CatatanHarian.Controller.HarianController import *
+from CatatanHandler.CatatanHarian.Controller.HarianController import HarianController
 from datetime import datetime
-from CatatanHandler.ConfirmPopUp.ConfirmPopUp import *
+from CatatanHandler.ConfirmPopUp.ConfirmPopUp import ConfirmPopUp
 
 # Class HarianDisplay
 class HarianDisplay(QMainWindow):
     # Constructor
     def __init__(self, Main, tanggal = datetime.now().strftime("%d/%m/%Y")):
         super().__init__()
+
+        # Set parent with Main
         self.parent = Main
+
+        # Set parent's date attribute
         self.parent.date = tanggal
+
+        # Show harian display
         self.showHarianDisplay()
 
     def showHarianDisplay(self):
         # Set main window as parent
         uic.loadUi("./src/CatatanHandler/CatatanHarian/Boundary/HarianDisplay.ui", self)
 
-        # Sidebar
+        # Sidebar and other buttons
         self.main_menu = self.findChild(QLabel, "label_2")
         self.main_menu.mousePressEvent = self.back
 
@@ -101,6 +107,8 @@ class HarianDisplay(QMainWindow):
             # Create Main Widget
             harian_widget = QWidget()
             harian_widget.setObjectName("Outer")
+
+            # Styling Main Widget
             harian_widget.setStyleSheet("""
                 #Outer {
                     background-color: white; 
@@ -122,10 +130,12 @@ class HarianDisplay(QMainWindow):
             harian_widget.setMaximumHeight(70)
             harian_widget.setMaximumWidth(1920)
 
+            # Add drop shadow effect to main widget
             shadow = QGraphicsDropShadowEffect()
             shadow.setBlurRadius(5)
             shadow.setOffset(4,4)
             harian_widget.setGraphicsEffect(shadow)
+
             # Create Main Layout
             harian_box = QHBoxLayout()
 
@@ -240,26 +250,34 @@ class HarianDisplay(QMainWindow):
         self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(12))
 
     def back(self, event):
+        # Go back to main menu
         self.parent.stackedWidget.setCurrentIndex(2)
     
     def backToCalendar(self, event):
+        # Navigate back to harian calendar
         self.parent.stackedWidget.setCurrentIndex(13)
         
     def exitEvent(self, event):
+        # Exit application
         QApplication.quit()
-    
+
     def navigateArticle(self, event):
+        # Navigate to page article
         self.parent.stackedWidget.setCurrentIndex(3)
-    
+
     def navigateToDoList(self, event):
+        # Navigate to page calendar to do list
         self.parent.stackedWidget.setCurrentIndex(5)
 
     def navigateSyukur(self, event):
+        # Navigate to page syukur
         self.parent.stackedWidget.setCurrentIndex(7)
 
     def navigateTarget(self, event):
+        # Navigate to page target
         self.parent.stackedWidget.setCurrentIndex(9)
 
     def navigateHarian(self, event):
+        # Navigate to page calendar harian
         self.parent.stackedWidget.widget(13).calendar.setSelectedDate(QDate())
         self.parent.stackedWidget.setCurrentIndex(13)

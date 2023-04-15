@@ -1,19 +1,24 @@
 # Import libraries
-from PyQt5.QtWidgets import QTextEdit, QApplication, QMainWindow, QLabel, QPushButton
+from PyQt5.QtWidgets import QTextEdit, QApplication, QMainWindow, QLabel, QPushButton, QGraphicsDropShadowEffect, QWidget
 from PyQt5 import uic
 from PyQt5.QtCore import QDate
-from CatatanHandler.CatatanSyukur.Boundary.SyukurDisplay import *
+from CatatanHandler.CatatanSyukur.Boundary.SyukurDisplay import SyukurDisplay
 from CatatanHandler.CatatanSyukur.Boundary.SyukurImages import *
-from CatatanHandler.CatatanSyukur.Controller.SyukurController import *
+from CatatanHandler.CatatanSyukur.Controller.SyukurController import SyukurController
 from datetime import datetime
 
 class FormSyukur(QMainWindow):
     def __init__(self, Main):
         super().__init__()
+
+        # Set parent with Main
         self.parent = Main
+
+        # Show Form Syukur
         self.showFormSyukur()
 
     def showFormSyukur(self):
+        # Load UI
         uic.loadUi("./src/CatatanHandler/CatatanSyukur/Boundary/FormSyukur.ui", self)
 
         # Sidebar
@@ -47,7 +52,7 @@ class FormSyukur(QMainWindow):
         
         # Cancel Button
         self.cancel_button = self.findChild(QPushButton, "cancel")
-        self.cancel_button.clicked.connect(self.back)
+        self.cancel_button.clicked.connect(self.navigateSyukur)
         self.cancel_button.setGraphicsEffect(shadow)
 
         # Save Button
@@ -74,13 +79,15 @@ class FormSyukur(QMainWindow):
         self.widget.setGraphicsEffect(shadow)
         
     def back(self, event):
+        # Go back to main menu
         self.parent.stackedWidget.setCurrentIndex(2)
     
     def exitEvent(self, event):
+        # Exit application
         QApplication.quit()
 
     def submit(self, event):
-        # Edit mode or add mode
+        # Select submit method (edit or add)
         if(self.parent.editMode):
             self.edit()
         else:
@@ -112,19 +119,24 @@ class FormSyukur(QMainWindow):
         self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(7))
         self.parent.stackedWidget.insertWidget(7, SyukurDisplay(self.parent))
         self.parent.stackedWidget.setCurrentIndex(7)
-    
+
     def navigateArticle(self, event):
+        # Navigate to page article
         self.parent.stackedWidget.setCurrentIndex(3)
-    
+
     def navigateToDoList(self, event):
+        # Navigate to page calendar to do list
         self.parent.stackedWidget.setCurrentIndex(5)
 
     def navigateSyukur(self, event):
+        # Navigate to page syukur
         self.parent.stackedWidget.setCurrentIndex(7)
 
     def navigateTarget(self, event):
+        # Navigate to page target
         self.parent.stackedWidget.setCurrentIndex(9)
 
     def navigateHarian(self, event):
+        # Navigate to page calendar harian
         self.parent.stackedWidget.widget(13).calendar.setSelectedDate(QDate())
         self.parent.stackedWidget.setCurrentIndex(13)

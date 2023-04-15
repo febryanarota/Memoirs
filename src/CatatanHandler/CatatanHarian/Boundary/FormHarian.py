@@ -1,9 +1,10 @@
 # Import libraries
-from PyQt5.QtWidgets import QTimeEdit, QApplication, QMainWindow, QLabel, QPushButton, QLineEdit, QGraphicsDropShadowEffect
+from PyQt5.QtWidgets import QTimeEdit, QApplication, QMainWindow, QLabel, QPushButton, QLineEdit, QGraphicsDropShadowEffect, QMessageBox, QWidget
 from PyQt5 import uic
-from CatatanHandler.CatatanHarian.Boundary.HarianDisplay import *
+from PyQt5.QtGui import QIcon
+from CatatanHandler.CatatanHarian.Boundary.HarianDisplay import HarianDisplay
 from CatatanHandler.CatatanHarian.Boundary.HarianImages import *
-from CatatanHandler.CatatanHarian.Controller.HarianController import *
+from CatatanHandler.CatatanHarian.Controller.HarianController import HarianController
 from datetime import datetime
 
 class FormHarian(QMainWindow):
@@ -46,7 +47,7 @@ class FormHarian(QMainWindow):
 
         # Cancel Button
         self.cancel_button = self.findChild(QPushButton, "cancel")
-        self.cancel_button.clicked.connect(self.back)
+        self.cancel_button.clicked.connect(self.navigateHarianDisplay)
         self.cancel_button.setGraphicsEffect(shadow)
 
         # Save Button
@@ -80,12 +81,15 @@ class FormHarian(QMainWindow):
         self.widget.setGraphicsEffect(shadow)
 
     def back(self, event):
+        # Go back to main menu
         self.parent.stackedWidget.setCurrentIndex(2)
     
     def exitEvent(self, event):
+        # Exit application
         QApplication.quit()
 
     def submit(self, event):
+        # Select submit method (edit or add)
         if(self.parent.editMode):
             self.edit()
         else:
@@ -94,50 +98,101 @@ class FormHarian(QMainWindow):
     def add(self):
         # Getting all input data from form
         harian = self.line_edit.text()
-        self.line_edit.setText("")
         tanggal = self.date.text()
         jam_mulai = self.jam_mulai_edit.time().toString("hh.mm")
         jam_berakhir = self.jam_berakhir_edit.time().toString("hh.mm")
 
-        # Create new note
-        HarianController().addHarian(jam_mulai, jam_berakhir, harian, tanggal)
+        # Getting list of all catatan harian on the input date
+        ListOfHarian = HarianController().showHarian(tanggal)
 
-        # Remove old widget and create new widget with new data
-        self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(11))
-        self.parent.stackedWidget.insertWidget(11, HarianDisplay(self.parent, self.date.text()))
-        self.parent.stackedWidget.setCurrentIndex(11)
+        # Check if jadwal already exist or not
+        checkValid = True
+
+        # Iterate all catatan harian
+        for el in ListOfHarian:
+            if(el.getTanggal() == tanggal and el.getKegiatan() == harian and el.getJamMulai() == jam_mulai and el.getJamBerakhir() == jam_berakhir):
+                # If jadwal exists
+                checkValid = False
+                break
+
+        if checkValid:
+            # Create new note
+            HarianController().addHarian(jam_mulai, jam_berakhir, harian, tanggal)
+
+            # Remove old widget and create new widget with new data
+            self.line_edit.setText("")
+            self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(11))
+            self.parent.stackedWidget.insertWidget(11, HarianDisplay(self.parent, self.date.text()))
+            self.parent.stackedWidget.setCurrentIndex(11)
+        else:
+            # Show warning message
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("Target has already been recorded.")
+            msg.setWindowTitle("Warning")
+            msg.setWindowIcon(QIcon("./images/M.png"))
+            msg.exec_()
 
     def edit(self):
         # Getting all input data from form
         harian = self.line_edit.text()
-        self.line_edit.setText("")
         tanggal = self.date.text()
         jam_mulai = self.jam_mulai_edit.time().toString("hh.mm")
         jam_berakhir = self.jam_berakhir_edit.time().toString("hh.mm")
 
-        # Edit old note
-        HarianController().editHarian(self.parent.harian_lama, jam_mulai, jam_berakhir, harian, tanggal)
+        # Getting list of all catatan harian on the input date
+        ListOfHarian = HarianController().showHarian(tanggal)
 
-        # Remove old widget and create new widget with new data
-        self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(11))
-        self.parent.stackedWidget.insertWidget(11, HarianDisplay(self.parent, self.date.text()))
-        self.parent.stackedWidget.setCurrentIndex(11)
+        # Check if jadwal already exist or not
+        checkValid = True
+
+        # Iterate all catatan harian
+        for el in ListOfHarian:
+            if(el.getTanggal() == tanggal and el.getKegiatan() == harian and el.getJamMulai() == jam_mulai and el.getJamBerakhir() == jam_berakhir):
+                # If jadwal exists
+                checkValid = False
+                break
+
+        if checkValid:
+            # Reset text
+            self.line_edit.setText("")
+
+            # Edit old note
+            HarianController().editHarian(self.parent.harian_lama, jam_mulai, jam_berakhir, harian, tanggal)
+
+            # Remove old page and create new page with new data
+            self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(11))
+            self.parent.stackedWidget.insertWidget(11, HarianDisplay(self.parent, self.date.text()))
+            self.parent.stackedWidget.setCurrentIndex(11)
+        else:
+            # Show warning message
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("Target has already been recorded.")
+            msg.setWindowTitle("Warning")
+            msg.setWindowIcon(QIcon("./images/M.png"))
+            msg.exec_()
     
     def navigateArticle(self, event):
+        # Navigate to page article
         self.parent.stackedWidget.setCurrentIndex(3)
     
     def navigateToDoList(self, event):
+        # Navigate to page calendar to do list
         self.parent.stackedWidget.setCurrentIndex(5)
 
     def navigateSyukur(self, event):
+        # Navigate to page syukur
         self.parent.stackedWidget.setCurrentIndex(7)
 
     def navigateTarget(self, event):
+        # Navigate to page target
         self.parent.stackedWidget.setCurrentIndex(9)
 
     def navigateHarian(self, event):
-        self.parent.stackedWidget.widget(13).calendar.setSelectedDate(QDate())
+        # Navigate to page calendar harian
         self.parent.stackedWidget.setCurrentIndex(13)
     
     def navigateHarianDisplay(self, event):
+        # Navigate to page harian
         self.parent.stackedWidget.setCurrentIndex(11)
