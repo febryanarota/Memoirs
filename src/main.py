@@ -111,7 +111,7 @@ class MainWindow(QMainWindow):
 
     def initializeMain(self):
         # Set initial size and window title
-        self.resize(1280, 720)
+        self.resize(1280, 840)
         self.setWindowTitle("Memoirs")
         self.setWindowIcon(QIcon("./images/M.png"))
         self.initializeDataArticle()
