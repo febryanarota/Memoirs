@@ -273,17 +273,20 @@ margin-top: 20px;</string>
                   <widget class="QTimeEdit" name="timeEdit">
                    <property name="font">
                     <font>
-                     <pointsize>14</pointsize>
+                     <pointsize>13</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">background-color: white; padding: 20px;margin-top: 0px; margin-bottom: 20px;</string>
+                    <string notr="true">background-color: white; padding: 20px; margin-top: 0px; margin-bottom: 20px;</string>
                    </property>
                    <property name="alignment">
                     <set>Qt::AlignCenter</set>
                    </property>
                    <property name="buttonSymbols">
                     <enum>QAbstractSpinBox::NoButtons</enum>
+                   </property>
+                   <property name="calendarPopup">
+                    <bool>false</bool>
                    </property>
                   </widget>
                  </item>
