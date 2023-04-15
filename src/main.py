@@ -158,7 +158,7 @@ class MainWindow(QMainWindow):
         file = QFile(filename)
         if not file.open(QIODevice.ReadOnly):
             print("Failed to open image file")
-            exit(1)
+            sys.exit(1)
         image_data = file.readAll()
         return image_data
 
