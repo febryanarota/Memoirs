@@ -100,7 +100,7 @@ class SyukurDisplay(QMainWindow):
             """
             )
             syukur_widget.setContentsMargins(0,0,0,0)
-            syukur_widget.setMinimumSize(1150, 70)
+            syukur_widget.setMinimumSize(0, 70)
             syukur_widget.setMaximumHeight(70)
             syukur_widget.setMaximumWidth(1920)
 

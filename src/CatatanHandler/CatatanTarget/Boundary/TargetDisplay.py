@@ -100,7 +100,7 @@ class TargetDisplay(QMainWindow):
             """
             )
             target_widget.setContentsMargins(0,0,0,0)
-            target_widget.setMinimumSize(1150, 70)
+            target_widget.setMinimumSize(0, 70)
             target_widget.setMaximumHeight(70)
             target_widget.setMaximumWidth(1920)
 

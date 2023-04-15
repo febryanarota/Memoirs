@@ -111,7 +111,7 @@ class TDLDisplay(QMainWindow):
                     margin-right: 0px;
                 }
             """)
-            TDL_widget.setMinimumSize(1150, 70)
+            TDL_widget.setMinimumSize(0, 70)
             TDL_widget.setMaximumHeight(70)
             TDL_widget.setMaximumWidth(1920)
 

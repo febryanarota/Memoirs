@@ -538,7 +538,7 @@ margin-top: 20px;</string>
          <property name="geometry">
           <rect>
            <x>40</x>
-           <y>730</y>
+           <y>630</y>
            <width>31</width>
            <height>31</height>
           </rect>
@@ -558,7 +558,7 @@ margin-top: 20px;</string>
   </widget>
  </widget>
  <resources>
-  <include location="../../../../../../../../../AppData/Downloads/tes.qrc"/>
+  <include location="../../../../../../../../../Downloads/tes.qrc"/>
   <include location="../../../../../../../../../Downloads/tes.qrc"/>
  </resources>
  <connections/>

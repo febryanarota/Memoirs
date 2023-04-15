@@ -118,7 +118,7 @@ class HarianDisplay(QMainWindow):
             """
             )
             harian_widget.setContentsMargins(0,0,0,0)
-            harian_widget.setMinimumSize(1150, 70)
+            harian_widget.setMinimumSize(0, 70)
             harian_widget.setMaximumHeight(70)
             harian_widget.setMaximumWidth(1920)
 
