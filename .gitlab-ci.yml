@@ -21,5 +21,6 @@ pytest:
   stage: test
   script:
     - echo "Testing the code..."
+    - pip install pytest pytest-qt
     - pytest src/Testing/test.py
     - echo "Testing complete."
