@@ -162,7 +162,7 @@ class ArtikelDisplay(QMainWindow):
         # Set image of article
         image = QPixmap()
         image.loadFromData(article.getImage())
-        image = image.scaled(500,312.5)
+        image = image.scaled(500,313)
 
         # Set content of article
         self.parent.stackedWidget.widget(4).content.setText(article.getContent())
