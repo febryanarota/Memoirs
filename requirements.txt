@@ -1,3 +1,4 @@
 pytest
 pylint
 pyqt5
+pytest-qt
