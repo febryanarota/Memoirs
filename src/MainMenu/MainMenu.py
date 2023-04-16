@@ -1,8 +1,9 @@
 # Import libraries
+import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QFrame, QGraphicsDropShadowEffect
 from PyQt5.QtCore import QDate
 from PyQt5 import uic
-from MainMenu.MainMenuImages import *
+sys.path.append('./src/MainMenu')
 
 class MainMenu(QMainWindow):
     # Constructor
@@ -16,50 +17,50 @@ class MainMenu(QMainWindow):
         uic.loadUi("./src/MainMenu/MainMenu.ui", self)
 
         # Bind sidebar labels, images, and text labels with navigations
-        todolist_sidebar = self.findChild(QLabel, "label")
-        todolist_sidebar.mousePressEvent = self.navigateToDoList
+        self.todolist_sidebar = self.findChild(QLabel, "label")
+        self.todolist_sidebar.mousePressEvent = self.navigateToDoList
 
-        todolist_image = self.findChild(QLabel, "label_11")
-        todolist_image.mousePressEvent = self.navigateToDoList
+        self.todolist_image = self.findChild(QLabel, "label_11")
+        self.todolist_image.mousePressEvent = self.navigateToDoList
 
-        todolist_menu = self.findChild(QLabel, "label_16")
-        todolist_menu.mousePressEvent = self.navigateToDoList
+        self.todolist_menu = self.findChild(QLabel, "label_16")
+        self.todolist_menu.mousePressEvent = self.navigateToDoList
 
-        harian_sidebar = self.findChild(QLabel, "label_5")
-        harian_sidebar.mousePressEvent = self.navigateHarian
+        self.harian_sidebar = self.findChild(QLabel, "label_5")
+        self.harian_sidebar.mousePressEvent = self.navigateHarian
 
-        harian_image = self.findChild(QLabel, "label_12")
-        harian_image.mousePressEvent = self.navigateHarian
+        self.harian_image = self.findChild(QLabel, "label_12")
+        self.harian_image.mousePressEvent = self.navigateHarian
 
-        harian_menu = self.findChild(QLabel, "label_17")
-        harian_menu.mousePressEvent = self.navigateHarian
+        self.harian_menu = self.findChild(QLabel, "label_17")
+        self.harian_menu.mousePressEvent = self.navigateHarian
 
-        target_sidebar = self.findChild(QLabel, "label_4")
-        target_sidebar.mousePressEvent = self.navigateTarget
+        self.target_sidebar = self.findChild(QLabel, "label_4")
+        self.target_sidebar.mousePressEvent = self.navigateTarget
 
-        target_image = self.findChild(QLabel, "label_13")
-        target_image.mousePressEvent = self.navigateTarget
+        self.target_image = self.findChild(QLabel, "label_13")
+        self.target_image.mousePressEvent = self.navigateTarget
 
-        target_menu = self.findChild(QLabel, "label_18")
-        target_menu.mousePressEvent = self.navigateTarget
+        self.target_menu = self.findChild(QLabel, "label_18")
+        self.target_menu.mousePressEvent = self.navigateTarget
 
-        syukur_sidebar = self.findChild(QLabel, "label_8")
-        syukur_sidebar.mousePressEvent = self.navigateSyukur
+        self.syukur_sidebar = self.findChild(QLabel, "label_8")
+        self.syukur_sidebar.mousePressEvent = self.navigateSyukur
 
-        syukur_image = self.findChild(QLabel, "label_14")
-        syukur_image.mousePressEvent = self.navigateSyukur
+        self.syukur_image = self.findChild(QLabel, "label_14")
+        self.syukur_image.mousePressEvent = self.navigateSyukur
 
-        syukur_menu = self.findChild(QLabel, "label_19")
-        syukur_menu.mousePressEvent = self.navigateSyukur
+        self.syukur_menu = self.findChild(QLabel, "label_19")
+        self.syukur_menu.mousePressEvent = self.navigateSyukur
 
-        article_sidebar = self.findChild(QLabel, "label_6")
-        article_sidebar.mousePressEvent = self.navigateArticle
+        self.article_sidebar = self.findChild(QLabel, "label_6")
+        self.article_sidebar.mousePressEvent = self.navigateArticle
 
-        article_image = self.findChild(QLabel, "label_15")
-        article_image.mousePressEvent = self.navigateArticle
+        self.article_image = self.findChild(QLabel, "label_15")
+        self.article_image.mousePressEvent = self.navigateArticle
 
-        article_menu = self.findChild(QLabel, "label_20")
-        article_menu.mousePressEvent = self.navigateArticle
+        self.article_menu = self.findChild(QLabel, "label_20")
+        self.article_menu.mousePressEvent = self.navigateArticle
 
         self.exit = self.findChild(QLabel, "label_7")
         self.exit.mousePressEvent = self.exitEvent
