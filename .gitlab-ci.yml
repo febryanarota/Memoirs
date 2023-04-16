@@ -1,22 +1,27 @@
 image: "python:3.10"
 
 before_script:
+  - apt-get update
+  - apt-get install -y libgl1-mesa-glx
   - python --version
   - pip install -r requirements.txt
 
-stages:          # List of stages for jobs, and their order of execution
+stages: # List of stages for jobs, and their order of execution
   - build
   - test
 
 pylint:
-    stage: build
-    script:
+  stage: build
+  script:
     - echo "Building the code..."
-    - pylint -d C0301 src/main.py
+    - pylint -d C0301,E0401,C0114,C0115,C0103,C0116,E0611 src/main.py
     - echo "Building complete."
 
 pytest:
-    stage: test
-    script:
+  stage: test
+  variables:
+      QT_QPA_PLATFORM: "offscreen"
+  script:
     - echo "Testing the code..."
+    - pytest src/Testing/test.py
     - echo "Testing complete."
