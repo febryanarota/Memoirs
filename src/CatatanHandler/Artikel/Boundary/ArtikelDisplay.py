@@ -110,7 +110,7 @@ class ArtikelDisplay(QMainWindow):
             label_image = QLabel()
             image = QPixmap()
             image.loadFromData(listOfArticle[i].getImage())
-            image = image.scaled(300,187.5)
+            image = image.scaled(300, 188)
             label_image.setPixmap(image)
 
             # Create Second Content
