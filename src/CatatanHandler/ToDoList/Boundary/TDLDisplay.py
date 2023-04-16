@@ -140,11 +140,11 @@ class TDLDisplay(QMainWindow):
             # Create Check Icon
             check_icon = QPushButton()
             check_icon.setObjectName("checklist")
-            img = QPixmap("./images/checkBox.png")
+            img = QPixmap("./img/checkBox.png")
 
             # Styling Check Icon Based on Done
             if listTodo[i].getDone() == 1:
-                img = QPixmap("./images/checked.png")
+                img = QPixmap("./img/checked.png")
                 TDL_widget.setStyleSheet("""
                     #Outer {
                         background-color: #E5E5E5;; 
@@ -200,7 +200,7 @@ class TDLDisplay(QMainWindow):
             # Create Delete Icon
             delete_icon = QLabel()
             delete_icon.setObjectName("delete")
-            icon = QPixmap("./images/delete_btn.png")
+            icon = QPixmap("./img/delete_btn.png")
 
             # Styling Delete Icon
             icon = icon.scaled(30, 30, Qt.KeepAspectRatio, Qt.FastTransformation)
@@ -210,7 +210,7 @@ class TDLDisplay(QMainWindow):
             # Create Edit icon
             edit_icon = QLabel()
             edit_icon.setObjectName("edit")
-            icon = QPixmap("./images/edit_btn.png")
+            icon = QPixmap("./img/edit_btn.png")
             icon = icon.scaled(30, 30, Qt.KeepAspectRatio, Qt.FastTransformation)
             edit_icon.setPixmap(icon)
             edit_icon.setObjectName("edit")

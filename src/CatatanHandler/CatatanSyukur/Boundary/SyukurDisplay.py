@@ -133,7 +133,7 @@ class SyukurDisplay(QMainWindow):
 
             # Create delete button
             label_image = QLabel()
-            image = QPixmap("./images/delete_btn.png")
+            image = QPixmap("./img/delete_btn.png")
             image = image.scaled(30, 30, Qt.KeepAspectRatio, Qt.FastTransformation)
             label_image.setPixmap(image)
             label_image.setObjectName("delete")
@@ -141,7 +141,7 @@ class SyukurDisplay(QMainWindow):
 
             # Create edit button
             label_edit_image = QLabel()
-            image_edit = QPixmap("./images/edit_btn.png")
+            image_edit = QPixmap("./img/edit_btn.png")
             image_edit = image_edit.scaled(30, 30, Qt.KeepAspectRatio, Qt.FastTransformation)
             label_edit_image.setPixmap(image_edit)
             label_edit_image.mousePressEvent = partial(self.editSyukur, syukurLama = self.ListAllSyukur[i].getSyukur(), tanggal = self.ListAllSyukur[i].getTanggal())
@@ -240,7 +240,7 @@ class SyukurDisplay(QMainWindow):
             msg.setIcon(QMessageBox.Warning)
             msg.setText("Today's Catatan Syukur has already been recorded.")
             msg.setWindowTitle("Warning")
-            msg.setWindowIcon(QIcon("./images/M.png"))
+            msg.setWindowIcon(QIcon("./img/M.png"))
             msg.exec_()
 
     def editSyukur(self, event, syukurLama, tanggal):

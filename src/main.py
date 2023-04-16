@@ -113,7 +113,7 @@ class MainWindow(QMainWindow):
         # Set initial size and window title
         self.resize(1280, 840)
         self.setWindowTitle("Memoirs")
-        self.setWindowIcon(QIcon("./images/M.png"))
+        self.setWindowIcon(QIcon("./img/M.png"))
         self.initializeDataArticle()
         self.date = date.today().strftime('%d/%m/%Y')
         self.editMode = False

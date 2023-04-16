@@ -101,7 +101,7 @@ class FormTDL(QMainWindow):
             msg.setIcon(QMessageBox.Warning)
             msg.setText("Target has already been recorded.")
             msg.setWindowTitle("Warning")
-            msg.setWindowIcon(QIcon("./images/M.png"))
+            msg.setWindowIcon(QIcon("./img/M.png"))
             msg.exec_()
 
     def edit(self):
@@ -137,7 +137,7 @@ class FormTDL(QMainWindow):
             msg.setIcon(QMessageBox.Warning)
             msg.setText("Target has already been recorded.")
             msg.setWindowTitle("Warning")
-            msg.setWindowIcon(QIcon("./images/M.png"))
+            msg.setWindowIcon(QIcon("./img/M.png"))
             msg.exec_()
 
     def back(self, event):

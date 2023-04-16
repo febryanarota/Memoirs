@@ -56,11 +56,11 @@ class Calendar(QMainWindow):
 
         # Prev Month Button
         self.prev_month = self.findChild(QToolButton, "qt_calendar_prevmonth")
-        self.prev_month.setIcon(QIcon("./images/prev_icon.png"))
+        self.prev_month.setIcon(QIcon("./img/prev_icon.png"))
 
         # Next Month Button
         self.next_month = self.findChild(QToolButton, "qt_calendar_nextmonth")
-        self.next_month.setIcon(QIcon("./images/next_icon.png"))
+        self.next_month.setIcon(QIcon("./img/next_icon.png"))
 
     def chooseDate(self, date):
         # Select date and navigate to notes page

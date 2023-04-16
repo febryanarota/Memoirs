@@ -131,7 +131,7 @@ class TargetDisplay(QMainWindow):
 
             # Create Delete Button
             label_image = QLabel()
-            image = QPixmap("./images/delete_btn.png")
+            image = QPixmap("./img/delete_btn.png")
             image = image.scaled(30, 30, Qt.KeepAspectRatio, Qt.FastTransformation)
             label_image.setPixmap(image)
             label_image.setObjectName("delete")
@@ -139,7 +139,7 @@ class TargetDisplay(QMainWindow):
 
             # Create Edit Button
             label_edit_image = QLabel()
-            image_edit = QPixmap("./images/edit_btn.png")
+            image_edit = QPixmap("./img/edit_btn.png")
             image_edit = image_edit.scaled(30, 30, Qt.KeepAspectRatio, Qt.FastTransformation)
             label_edit_image.setPixmap(image_edit)
             label_edit_image.mousePressEvent = partial(self.editTarget, targetLama = ListAllTarget[i].getTarget(), tanggal = ListAllTarget[i].getTanggal())

@@ -151,7 +151,7 @@ class HarianDisplay(QMainWindow):
 
             # Setup Delete Button
             label_image = QLabel()
-            image = QPixmap("./images/delete_btn.png")
+            image = QPixmap("./img/delete_btn.png")
             image = image.scaled(30, 30, Qt.KeepAspectRatio, Qt.FastTransformation)
             label_image.setPixmap(image)
             label_image.setObjectName("delete")
@@ -159,7 +159,7 @@ class HarianDisplay(QMainWindow):
 
             # Setup Edit Button
             label_edit_image = QLabel()
-            image_edit = QPixmap("./images/edit_btn.png")
+            image_edit = QPixmap("./img/edit_btn.png")
             image_edit = image_edit.scaled(30, 30, Qt.KeepAspectRatio, Qt.FastTransformation)
             label_edit_image.setPixmap(image_edit)
             label_edit_image.mousePressEvent = partial(self.editHarian, harian_lama = ListAllHarian[i], kegiatan_lama = ListAllHarian[i].getKegiatan(), tanggal = ListAllHarian[i].getTanggal(), jam_mulai_lama = ListAllHarian[i].getJamMulai(), jam_berakhir_lama = ListAllHarian[i].getJamBerakhir())
