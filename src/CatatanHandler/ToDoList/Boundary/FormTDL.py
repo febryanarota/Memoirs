@@ -74,35 +74,44 @@ class FormTDL(QMainWindow):
         # Getting all input data from form
         task = self.inputbox.text()
 
-        # Getting list of all to do list on the form date
-        ListOfTDL = TDLController().showTDL(self.formDate)
-
-        # Check if to do list already exist or not
-        checkValid = True
-
-        # Iterate all To Do List
-        for el in ListOfTDL:
-            if(el.getTanggal() == self.formDate and el.getToDo() == task):
-                # If to do list exists
-                checkValid = False
-                break
-
-        if checkValid:
-            # Create new to do list
-            TDLController().addTDL(task, self.date.text())
-
-            # Remove old page and create new page with new data
-            self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(5))
-            self.parent.stackedWidget.insertWidget(5,TDLDisplay(self.parent, self.date.text()))
-            self.parent.stackedWidget.setCurrentIndex(5)
-        else:
+        if task == "":
             # Show warning message
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
-            msg.setText("Target has already been recorded.")
+            msg.setText("To Do cannot be empty.")
             msg.setWindowTitle("Warning")
             msg.setWindowIcon(QIcon("./img/M.png"))
             msg.exec_()
+        else:
+            # Getting list of all to do list on the form date
+            ListOfTDL = TDLController().showTDL(self.formDate)
+
+            # Check if to do list already exist or not
+            checkValid = True
+
+            # Iterate all To Do List
+            for el in ListOfTDL:
+                if(el.getTanggal() == self.formDate and el.getToDo() == task):
+                    # If to do list exists
+                    checkValid = False
+                    break
+
+            if checkValid:
+                # Create new to do list
+                TDLController().addTDL(task, self.date.text())
+
+                # Remove old page and create new page with new data
+                self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(5))
+                self.parent.stackedWidget.insertWidget(5,TDLDisplay(self.parent, self.date.text()))
+                self.parent.stackedWidget.setCurrentIndex(5)
+            else:
+                # Show warning message
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                msg.setText("To Do has already been recorded.")
+                msg.setWindowTitle("Warning")
+                msg.setWindowIcon(QIcon("./img/M.png"))
+                msg.exec_()
 
     def edit(self):
         # Getting all input data from form
@@ -110,35 +119,44 @@ class FormTDL(QMainWindow):
         tanggal = self.date.text()
         done = self.parent.todo_list_lama.getDone()
 
-        # Getting list of all to do list on the form date
-        ListOfTDL = TDLController().showTDL(tanggal)
-
-        # Check if to do list already exist or not
-        checkValid = True
-
-        # Iterate all To Do List
-        for el in ListOfTDL:
-            if(el.getTanggal() == tanggal and el.getToDo() == to_do):
-                # If to do list exists
-                checkValid = False
-                break
-
-        if checkValid:
-            # Edit existing to do list
-            TDLController().editTDL(self.parent.todo_list_lama, to_do, tanggal, done)
-            
-            # Remove old page and create new page with new data
-            self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(5))
-            self.parent.stackedWidget.insertWidget(5,TDLDisplay(self.parent, self.date.text()))
-            self.parent.stackedWidget.setCurrentIndex(5)
-        else:
+        if to_do == "":
             # Show warning message
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
-            msg.setText("Target has already been recorded.")
+            msg.setText("To Do cannot be empty.")
             msg.setWindowTitle("Warning")
             msg.setWindowIcon(QIcon("./img/M.png"))
             msg.exec_()
+        else:
+            # Getting list of all to do list on the form date
+            ListOfTDL = TDLController().showTDL(tanggal)
+
+            # Check if to do list already exist or not
+            checkValid = True
+
+            # Iterate all To Do List
+            for el in ListOfTDL:
+                if(el.getTanggal() == tanggal and el.getToDo() == to_do):
+                    # If to do list exists
+                    checkValid = False
+                    break
+
+            if checkValid:
+                # Edit existing to do list
+                TDLController().editTDL(self.parent.todo_list_lama, to_do, tanggal, done)
+                
+                # Remove old page and create new page with new data
+                self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(5))
+                self.parent.stackedWidget.insertWidget(5,TDLDisplay(self.parent, self.date.text()))
+                self.parent.stackedWidget.setCurrentIndex(5)
+            else:
+                # Show warning message
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                msg.setText("To Do has already been recorded.")
+                msg.setWindowTitle("Warning")
+                msg.setWindowIcon(QIcon("./img/M.png"))
+                msg.exec_()
 
     def back(self, event):
         # Go back to main menu

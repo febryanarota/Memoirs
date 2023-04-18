@@ -91,72 +91,90 @@ class FormTarget(QMainWindow):
         target = self.text_edit.toPlainText()
         tanggal = self.edit_date.date().toString("d/M/yyyy")
 
-        # Check if input target exists or not
-        ListOfTarget = TargetController().showTarget()
-        checkValid = True
-
-        # Iterate through all target
-        for el in ListOfTarget:
-            if(el.getTanggal() == tanggal and el.getTarget() == target):
-                # If target exists
-                checkValid = False
-                break
-
-        if checkValid:
-            # Add target
-            TargetController().addTarget(target, tanggal)
-
-            # Reset input
-            self.text_edit.setText("")
-
-            # Remove old page and create new page with new data
-            self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(9))
-            self.parent.stackedWidget.insertWidget(9, TargetDisplay(self.parent))
-            self.parent.stackedWidget.setCurrentIndex(9)
-        else:
-            # Show Warning Message
+        if target == "":
+            # Show warning message
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
-            msg.setText("Target has already been recorded.")
+            msg.setText("Target cannot be empty.")
             msg.setWindowTitle("Warning")
             msg.setWindowIcon(QIcon("./img/M.png"))
             msg.exec_()
+        else:
+            # Check if input target exists or not
+            ListOfTarget = TargetController().showTarget()
+            checkValid = True
+
+            # Iterate through all target
+            for el in ListOfTarget:
+                if(el.getTanggal() == tanggal and el.getTarget() == target):
+                    # If target exists
+                    checkValid = False
+                    break
+
+            if checkValid:
+                # Add target
+                TargetController().addTarget(target, tanggal)
+
+                # Reset input
+                self.text_edit.setText("")
+
+                # Remove old page and create new page with new data
+                self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(9))
+                self.parent.stackedWidget.insertWidget(9, TargetDisplay(self.parent))
+                self.parent.stackedWidget.setCurrentIndex(9)
+            else:
+                # Show Warning Message
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                msg.setText("Target has already been recorded.")
+                msg.setWindowTitle("Warning")
+                msg.setWindowIcon(QIcon("./img/M.png"))
+                msg.exec_()
 
     def edit(self):
         # Getting all inputs
         target = self.text_edit.toPlainText()
         tanggal = self.edit_date.date().toString("d/M/yyyy")
 
-        # Check if input target exists or not
-        ListOfTarget = TargetController().showTarget()
-        checkValid = True
-
-        # Iterate through all target
-        for el in ListOfTarget:
-            if(el.getTanggal() == tanggal and el.getTarget() == target):
-                # If target exists
-                checkValid = False
-                break
-
-        if checkValid:
-            # Edit target
-            TargetController().editTarget(CatatanTarget(self.parent.targetLama, self.parent.date), target, tanggal)
-
-            # Reset input
-            self.text_edit.setText("")
-
-            # Remove old page and create new page with new data
-            self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(9))
-            self.parent.stackedWidget.insertWidget(9, TargetDisplay(self.parent))
-            self.parent.stackedWidget.setCurrentIndex(9)
-        else:
-            # Show Warning Message
+        if target == "":
+            # Show warning message
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
-            msg.setText("Target has already been recorded.")
+            msg.setText("Target cannot be empty.")
             msg.setWindowTitle("Warning")
             msg.setWindowIcon(QIcon("./img/M.png"))
             msg.exec_()
+        else:
+            # Check if input target exists or not
+            ListOfTarget = TargetController().showTarget()
+            checkValid = True
+
+            # Iterate through all target
+            for el in ListOfTarget:
+                if(el.getTanggal() == tanggal and el.getTarget() == target):
+                    # If target exists
+                    checkValid = False
+                    break
+
+            if checkValid:
+                # Edit target
+                TargetController().editTarget(CatatanTarget(self.parent.targetLama, self.parent.date), target, tanggal)
+
+                # Reset input
+                self.text_edit.setText("")
+
+                # Remove old page and create new page with new data
+                self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(9))
+                self.parent.stackedWidget.insertWidget(9, TargetDisplay(self.parent))
+                self.parent.stackedWidget.setCurrentIndex(9)
+            else:
+                # Show Warning Message
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                msg.setText("Target has already been recorded.")
+                msg.setWindowTitle("Warning")
+                msg.setWindowIcon(QIcon("./img/M.png"))
+                msg.exec_()
 
     def navigateArticle(self, event):
         # Navigate to page article

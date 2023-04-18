@@ -102,36 +102,45 @@ class FormHarian(QMainWindow):
         jam_mulai = self.jam_mulai_edit.time().toString("hh.mm")
         jam_berakhir = self.jam_berakhir_edit.time().toString("hh.mm")
 
-        # Getting list of all catatan harian on the input date
-        ListOfHarian = HarianController().showHarian(tanggal)
-
-        # Check if jadwal already exist or not
-        checkValid = True
-
-        # Iterate all catatan harian
-        for el in ListOfHarian:
-            if(el.getTanggal() == tanggal and el.getKegiatan() == harian and el.getJamMulai() == jam_mulai and el.getJamBerakhir() == jam_berakhir):
-                # If jadwal exists
-                checkValid = False
-                break
-
-        if checkValid:
-            # Create new note
-            HarianController().addHarian(jam_mulai, jam_berakhir, harian, tanggal)
-
-            # Remove old widget and create new widget with new data
-            self.line_edit.setText("")
-            self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(11))
-            self.parent.stackedWidget.insertWidget(11, HarianDisplay(self.parent, self.date.text()))
-            self.parent.stackedWidget.setCurrentIndex(11)
-        else:
+        if harian == "":
             # Show warning message
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
-            msg.setText("Target has already been recorded.")
+            msg.setText("Harian cannot be empty.")
             msg.setWindowTitle("Warning")
             msg.setWindowIcon(QIcon("./img/M.png"))
             msg.exec_()
+        else:
+            # Getting list of all catatan harian on the input date
+            ListOfHarian = HarianController().showHarian(tanggal)
+
+            # Check if jadwal already exist or not
+            checkValid = True
+
+            # Iterate all catatan harian
+            for el in ListOfHarian:
+                if(el.getTanggal() == tanggal and el.getKegiatan() == harian and el.getJamMulai() == jam_mulai and el.getJamBerakhir() == jam_berakhir):
+                    # If jadwal exists
+                    checkValid = False
+                    break
+
+            if checkValid:
+                # Create new note
+                HarianController().addHarian(jam_mulai, jam_berakhir, harian, tanggal)
+
+                # Remove old widget and create new widget with new data
+                self.line_edit.setText("")
+                self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(11))
+                self.parent.stackedWidget.insertWidget(11, HarianDisplay(self.parent, self.date.text()))
+                self.parent.stackedWidget.setCurrentIndex(11)
+            else:
+                # Show warning message
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                msg.setText("Harian has already been recorded.")
+                msg.setWindowTitle("Warning")
+                msg.setWindowIcon(QIcon("./img/M.png"))
+                msg.exec_()
 
     def edit(self):
         # Getting all input data from form
@@ -140,38 +149,47 @@ class FormHarian(QMainWindow):
         jam_mulai = self.jam_mulai_edit.time().toString("hh.mm")
         jam_berakhir = self.jam_berakhir_edit.time().toString("hh.mm")
 
-        # Getting list of all catatan harian on the input date
-        ListOfHarian = HarianController().showHarian(tanggal)
-
-        # Check if jadwal already exist or not
-        checkValid = True
-
-        # Iterate all catatan harian
-        for el in ListOfHarian:
-            if(el.getTanggal() == tanggal and el.getKegiatan() == harian and el.getJamMulai() == jam_mulai and el.getJamBerakhir() == jam_berakhir):
-                # If jadwal exists
-                checkValid = False
-                break
-
-        if checkValid:
-            # Reset text
-            self.line_edit.setText("")
-
-            # Edit old note
-            HarianController().editHarian(self.parent.harian_lama, jam_mulai, jam_berakhir, harian, tanggal)
-
-            # Remove old page and create new page with new data
-            self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(11))
-            self.parent.stackedWidget.insertWidget(11, HarianDisplay(self.parent, self.date.text()))
-            self.parent.stackedWidget.setCurrentIndex(11)
-        else:
+        if harian == "":
             # Show warning message
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
-            msg.setText("Target has already been recorded.")
+            msg.setText("Harian cannot be empty.")
             msg.setWindowTitle("Warning")
             msg.setWindowIcon(QIcon("./img/M.png"))
             msg.exec_()
+        else:
+            # Getting list of all catatan harian on the input date
+            ListOfHarian = HarianController().showHarian(tanggal)
+
+            # Check if jadwal already exist or not
+            checkValid = True
+
+            # Iterate all catatan harian
+            for el in ListOfHarian:
+                if(el.getTanggal() == tanggal and el.getKegiatan() == harian and el.getJamMulai() == jam_mulai and el.getJamBerakhir() == jam_berakhir):
+                    # If jadwal exists
+                    checkValid = False
+                    break
+
+            if checkValid:
+                # Reset text
+                self.line_edit.setText("")
+
+                # Edit old note
+                HarianController().editHarian(self.parent.harian_lama, jam_mulai, jam_berakhir, harian, tanggal)
+
+                # Remove old page and create new page with new data
+                self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(11))
+                self.parent.stackedWidget.insertWidget(11, HarianDisplay(self.parent, self.date.text()))
+                self.parent.stackedWidget.setCurrentIndex(11)
+            else:
+                # Show warning message
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                msg.setText("Harian has already been recorded.")
+                msg.setWindowTitle("Warning")
+                msg.setWindowIcon(QIcon("./img/M.png"))
+                msg.exec_()
     
     def navigateArticle(self, event):
         # Navigate to page article
