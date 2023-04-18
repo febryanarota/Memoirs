@@ -1,7 +1,8 @@
 # Import libraries
-from PyQt5.QtWidgets import QTextEdit, QApplication, QMainWindow, QLabel, QPushButton, QGraphicsDropShadowEffect, QWidget
+from PyQt5.QtWidgets import QTextEdit, QApplication, QMainWindow, QLabel, QPushButton, QGraphicsDropShadowEffect, QWidget, QMessageBox
 from PyQt5 import uic
 from PyQt5.QtCore import QDate
+from PyQt5.QtGui import QIcon
 from CatatanHandler.CatatanSyukur.Boundary.SyukurDisplay import SyukurDisplay
 from CatatanHandler.CatatanSyukur.Boundary.SyukurImages import *
 from CatatanHandler.CatatanSyukur.Controller.SyukurController import SyukurController
@@ -99,26 +100,45 @@ class FormSyukur(QMainWindow):
         self.text_edit.setText("")
         today = datetime.now().strftime("%d/%m/%Y")
 
-        # Add new note
-        SyukurController().addSyukur(syukur, today)
+        if syukur == "":
+            # Show warning message
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("Syukur cannot be empty.")
+            msg.setWindowTitle("Warning")
+            msg.setWindowIcon(QIcon("./img/M.png"))
+            msg.exec_()
+        else:
+            # Add new note
+            SyukurController().addSyukur(syukur, today)
 
-        # Destroy old widget and create new widget
-        self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(7))
-        self.parent.stackedWidget.insertWidget(7, SyukurDisplay(self.parent))
-        self.parent.stackedWidget.setCurrentIndex(7)
+            # Destroy old widget and create new widget
+            self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(7))
+            self.parent.stackedWidget.insertWidget(7, SyukurDisplay(self.parent))
+            self.parent.stackedWidget.setCurrentIndex(7)
 
     def edit(self):
         # Getting all inputs
         syukur = self.text_edit.toPlainText()
-        self.text_edit.setText("")
 
-        # Edit new note
-        SyukurController().editSyukur(self.parent.syukurLama, syukur, self.parent.date)
+        if syukur == "":
+            # Show warning message
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("Syukur cannot be empty.")
+            msg.setWindowTitle("Warning")
+            msg.setWindowIcon(QIcon("./img/M.png"))
+            msg.exec_()
+        else:
+            self.text_edit.setText("")
 
-        # Destroy old widget and create new widget
-        self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(7))
-        self.parent.stackedWidget.insertWidget(7, SyukurDisplay(self.parent))
-        self.parent.stackedWidget.setCurrentIndex(7)
+            # Edit new note
+            SyukurController().editSyukur(self.parent.syukurLama, syukur, self.parent.date)
+
+            # Destroy old widget and create new widget
+            self.parent.stackedWidget.removeWidget(self.parent.stackedWidget.widget(7))
+            self.parent.stackedWidget.insertWidget(7, SyukurDisplay(self.parent))
+            self.parent.stackedWidget.setCurrentIndex(7)
 
     def navigateArticle(self, event):
         # Navigate to page article

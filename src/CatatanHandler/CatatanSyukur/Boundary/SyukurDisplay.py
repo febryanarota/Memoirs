@@ -238,7 +238,7 @@ class SyukurDisplay(QMainWindow):
             # Show warning box
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
-            msg.setText("Today's Catatan Syukur has already been recorded.")
+            msg.setText("Today's Gratitude Journal has already been recorded.")
             msg.setWindowTitle("Warning")
             msg.setWindowIcon(QIcon("./img/M.png"))
             msg.exec_()
