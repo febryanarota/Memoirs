@@ -6,6 +6,7 @@ from CatatanHandler.CatatanTarget.Boundary.TargetDisplay import TargetDisplay
 from CatatanHandler.CatatanTarget.Boundary.TargetImages import *
 from CatatanHandler.CatatanTarget.Controller.TargetController import TargetController
 from datetime import datetime
+from CatatanHandler.CatatanTarget.Entity.CatatanTarget import CatatanTarget
 
 class FormTarget(QMainWindow):
     def __init__(self, Main):
