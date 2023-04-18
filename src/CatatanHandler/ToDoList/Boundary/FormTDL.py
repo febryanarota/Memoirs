@@ -73,6 +73,7 @@ class FormTDL(QMainWindow):
     def add(self, event):
         # Getting all input data from form
         task = self.inputbox.text()
+        tanggal = self.date.text()
 
         if task == "":
             # Show warning message
@@ -84,14 +85,14 @@ class FormTDL(QMainWindow):
             msg.exec_()
         else:
             # Getting list of all to do list on the form date
-            ListOfTDL = TDLController().showTDL(self.formDate)
+            ListOfTDL = TDLController().showTDL(tanggal)
 
             # Check if to do list already exist or not
             checkValid = True
 
             # Iterate all To Do List
             for el in ListOfTDL:
-                if(el.getTanggal() == self.formDate and el.getToDo() == task):
+                if(el.getTanggal() == tanggal and el.getToDo() == task):
                     # If to do list exists
                     checkValid = False
                     break
