@@ -285,8 +285,8 @@ margin-top: 20px;</string>
                    <property name="buttonSymbols">
                     <enum>QAbstractSpinBox::NoButtons</enum>
                    </property>
-                   <property name="calendarPopup">
-                    <bool>false</bool>
+                   <property name="displayFormat">
+                    <string>h:mm AP</string>
                    </property>
                   </widget>
                  </item>
